@@ -1,0 +1,52 @@
+import streamlit as st
+import pandas as pd
+
+st.set_page_config(page_title="Smart Retail AI", layout="wide")
+st.title("🛒 Smart Retail AI Dashboard")
+
+uploaded_file = st.file_uploader("Upload Retail Dataset (CSV)", type="csv")
+
+if uploaded_file:
+    data = pd.read_csv(uploaded_file)
+
+    def risk_label(days):
+        if days <= 5: return "High"
+        elif days <= 10: return "Medium"
+        return "Low"
+
+    data["Risk"] = data["days_to_expiry"].apply(risk_label)
+
+    st.subheader("⏰ Expiry Risk Monitor")
+
+    def color_risk(val):
+        if val == "High": return "background-color:#ff4d4d"
+        if val == "Medium": return "background-color:#ffd11a"
+        return "background-color:#4dff4d"
+import streamlit as st
+import pandas as pd
+
+st.set_page_config(page_title="Smart Retail AI", layout="wide")
+st.title("🛒 Smart Retail AI Dashboard")
+
+uploaded_file = st.file_uploader("Upload Retail Dataset (CSV)", type="csv")
+
+if uploaded_file:
+    data = pd.read_csv(uploaded_file)
+
+    def risk_label(days):
+        if days <= 5: return "High"
+        elif days <= 10: return "Medium"
+        return "Low"
+
+    data["Risk"] = data["days_to_expiry"].apply(risk_label)
+
+    st.subheader("⏰ Expiry Risk Monitor")
+
+    def color_risk(val):
+        if val == "High": return "background-color:#ff4d4d"
+        if val == "Medium": return "background-color:#ffd11a"
+        return "background-color:#4dff4d"
+
+    st.dataframe(data.style.applymap(color_risk, subset=["Risk"]))
+
+    st.dataframe(data.style.applymap(color_risk, subset=["Risk"]))

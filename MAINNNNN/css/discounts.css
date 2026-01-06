@@ -275,3 +275,61 @@ body.dark tr.row-profit td{
 /* Keep pill visible on row */
 tr.row-loss .pl-badge.loss{background:#b91c1c;}
 tr.row-profit .pl-badge.profit{background:#16a34a;}
+
+
+/* KPI BASE */
+.kpi{
+  position: relative;
+  overflow: hidden;
+}
+
+/* PRODUCTS DISCOUNTED */
+.kpi:nth-child(1){
+  background: linear-gradient(135deg,#ffedd5,#fed7aa);
+  border-color:#fdba74;
+}
+.kpi:nth-child(1) b{color:#9a3412;}
+body.dark .kpi:nth-child(1){
+  background: linear-gradient(135deg,#431407,#7c2d12);
+  border-color:#fb923c;
+}
+body.dark .kpi:nth-child(1) b{color:#fed7aa;}
+
+
+/* HIGH RISK ITEMS */
+.kpi:nth-child(2){
+  background: linear-gradient(135deg,#fee2e2,#fecaca);
+  border-color:#fca5a5;
+}
+.kpi:nth-child(2) b{color:#7f1d1d;}
+body.dark .kpi:nth-child(2){
+  background: linear-gradient(135deg,#450a0a,#7f1d1d);
+  border-color:#f87171;
+}
+body.dark .kpi:nth-child(2) b{color:#fecaca;}
+
+
+/* AVG DISCOUNT */
+.kpi:nth-child(3){
+  background: linear-gradient(135deg,#dbeafe,#bfdbfe);
+  border-color:#93c5fd;
+}
+.kpi:nth-child(3) b{color:#1e40af;}
+body.dark .kpi:nth-child(3){
+  background: linear-gradient(135deg,#0f172a,#1e3a8a);
+  border-color:#60a5fa;
+}
+body.dark .kpi:nth-child(3) b{color:#dbeafe;}
+
+
+/* WASTE REDUCTION IMPACT */
+.kpi:nth-child(4){
+  background: linear-gradient(135deg,#dcfce7,#bbf7d0);
+  border-color:#86efac;
+}
+.kpi:nth-child(4) b{color:#065f46;}
+body.dark .kpi:nth-child(4){
+  background: linear-gradient(135deg,#022c22,#064e3b);
+  border-color:#4ade80;
+}
+body.dark .kpi:nth-child(4) b{color:#bbf7d0;}

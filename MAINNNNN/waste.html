@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Waste Management</title>
+  <link rel="stylesheet" href="css/waste.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="js/sidebar.js"></script>
+</head>
+<body>
+
+<div class="layout">
+<div id="sidebarContainer"></div>
+  <!-- Main -->
+  <main class="main">
+
+    <header>
+      <h1>Waste Management</h1>
+      <p>Smart actions to minimize retail loss</p>
+    </header>
+
+    <!-- Cards -->
+    <section class="cards">
+      <div class="card dispose" onclick="openAction('dispose')">
+        <span>Dispose</span>
+        <strong>1</strong>
+      </div>
+
+      <div class="card donate" onclick="openAction('donate')">
+        <span>Donate</span>
+        <strong>2</strong>
+      </div>
+
+      <div class="card discount" onclick="openAction('wdiscount')">
+        <span>Discount</span>
+        <strong>1</strong>
+      </div>
+
+      <div class="card sale" onclick="openAction('sale')">
+        <span>Sale</span>
+        <strong>1</strong>
+      </div>
+    </section>
+
+    <!-- Graph -->
+    <section class="chart-box">
+      <h3>Waste Action Overview</h3>
+      <canvas id="wasteChart"></canvas>
+    </section>
+
+  </main>
+</div>
+
+<!-- ACTION SLIDE PANEL -->
+<div id="actionModal" class="action-modal">
+  <div class="action-panel">
+    <button class="close-btn" onclick="closeAction()">✕</button>
+    <iframe id="actionFrame"></iframe>
+  </div>
+</div>
+
+<script>
+  fetch("components/sidebar.html")
+.then(r=>r.text())
+.then(h=>{
+ document.getElementById("sidebarContainer").innerHTML=h;
+ loadSidebar();lucide.createIcons();
+});
+</script>
+ <script src="js/waste.js"></script>
+</body>
+</html>

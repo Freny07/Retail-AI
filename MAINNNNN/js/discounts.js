@@ -16,21 +16,44 @@ const sens=document.getElementById("sens");
 const sensVal=document.getElementById("sensVal");
 const tbody=document.getElementById("tbody");
 
+function profitClass(val){
+  if(val < 0) return "loss";
+  if(val > 0) return "profit";
+  return "neutral";
+}
+
+function rowClass(val){
+  if(val < 0) return "row-loss";
+  if(val > 0) return "row-profit";
+  return "";
+}
+
 function render(){
  sensVal.innerText=sens.value;
  tbody.innerHTML="";
+
  products.forEach(p=>{
   const dis=getDiscount(p.days,p.sales,+sens.value);
   const amt=Math.round(p.price*dis/100);
   const fin=p.price-amt;
   const prof=fin-p.cost;
+
   tbody.innerHTML+=`
-   <tr>
-    <td>${p.name}</td><td>${p.brand}</td><td>${p.cat}</td><td>${p.stock}</td>
-    <td>${p.sales}</td><td>${p.days}</td><td>₹${p.price}</td>
+   <tr class="${rowClass(prof)}">
+    <td>${p.name}</td>
+    <td>${p.brand}</td>
+    <td>${p.cat}</td>
+    <td>${p.stock}</td>
+    <td>${p.sales}</td>
+    <td>${p.days}</td>
+    <td>₹${p.price}</td>
     <td>${dis?`-₹${amt} (${dis}%)`:"—"}</td>
     <td>₹${fin}</td>
-    <td>${prof>=0?`+₹${prof}`:`-₹${Math.abs(prof)}`}</td>
+    <td>
+      <span class="pl-badge ${profitClass(prof)}">
+        ${prof>=0?`+₹${prof}`:`-₹${Math.abs(prof)}`}
+      </span>
+    </td>
     <td>${dis?`${dis}% OFF`:"Stable"}</td>
    </tr>`;
  });

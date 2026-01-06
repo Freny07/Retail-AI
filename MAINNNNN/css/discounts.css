@@ -150,3 +150,186 @@ body.dark th{ color:var(--text-main); }
 body.dark .badge.red{ background:#3f1d1d;color:#fca5a5; }
 body.dark .badge.green{ background:#052e1a;color:#86efac; }
 body.dark .badge.orange{ background:#3a2208;color:#fdba74; }
+
+
+
+.pl-badge{
+  padding:6px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:600;
+}
+
+.pl-badge.profit{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.pl-badge.loss{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.pl-badge.neutral{
+  background:#e5e7eb;
+  color:#374151;
+}
+
+/* Dark mode */
+body.dark .pl-badge.profit{
+  background:rgba(34,197,94,.25);
+  color:#bbf7d0;
+}
+body.dark .pl-badge.loss{
+  background:rgba(239,68,68,.25);
+  color:#fecaca;
+}
+body.dark .pl-badge.neutral{
+  background:rgba(148,163,184,.25);
+  color:#e5e7eb;
+}
+
+
+.table-wrap table{
+  background: var(--card-bg);
+  border:1px solid var(--border-soft);
+}
+
+thead{
+  background: var(--table-head);
+  color: var(--text-main);
+}
+
+tbody tr{
+  transition:.2s;
+}
+
+tbody tr:hover{
+  background: rgba(148,163,184,0.08);
+}
+
+body.dark tbody tr:hover{
+  background: rgba(148,163,184,0.12);
+}
+
+th,td{
+  color: var(--text-main);
+  border-bottom:1px solid var(--border-soft);
+}
+.pl-badge{
+  padding:6px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.2px;
+}
+
+.pl-badge.profit{
+  background:#22c55e;
+  color:white;
+}
+
+.pl-badge.loss{
+  background:#ef4444;
+  color:white;
+}
+
+.pl-badge.neutral{
+  background:#64748b;
+  color:white;
+}
+
+/* Dark mode */
+body.dark .pl-badge.profit{background:#16a34a;}
+body.dark .pl-badge.loss{background:#dc2626;}
+body.dark .pl-badge.neutral{background:#475569;}
+
+
+
+/* ===== FULL ROW COLORING ===== */
+
+tr.row-loss td{
+  background: linear-gradient(90deg,#fee2e2,#fecaca);
+  color:#7f1d1d;
+  font-weight:600;
+}
+
+tr.row-profit td{
+  background: linear-gradient(90deg,#dcfce7,#bbf7d0);
+  color:#14532d;
+  font-weight:600;
+}
+
+/* DARK MODE */
+
+body.dark tr.row-loss td{
+  background: linear-gradient(90deg,#3f1d1d,#7f1d1d);
+  color:#fecaca;
+}
+
+body.dark tr.row-profit td{
+  background: linear-gradient(90deg,#052e1a,#14532d);
+  color:#bbf7d0;
+}
+
+/* Keep pill visible on row */
+tr.row-loss .pl-badge.loss{background:#b91c1c;}
+tr.row-profit .pl-badge.profit{background:#16a34a;}
+
+
+/* KPI BASE */
+.kpi{
+  position: relative;
+  overflow: hidden;
+}
+
+/* PRODUCTS DISCOUNTED */
+.kpi:nth-child(1){
+  background: linear-gradient(135deg,#ffedd5,#fed7aa);
+  border-color:#fdba74;
+}
+.kpi:nth-child(1) b{color:#9a3412;}
+body.dark .kpi:nth-child(1){
+  background: linear-gradient(135deg,#431407,#7c2d12);
+  border-color:#fb923c;
+}
+body.dark .kpi:nth-child(1) b{color:#fed7aa;}
+
+
+/* HIGH RISK ITEMS */
+.kpi:nth-child(2){
+  background: linear-gradient(135deg,#fee2e2,#fecaca);
+  border-color:#fca5a5;
+}
+.kpi:nth-child(2) b{color:#7f1d1d;}
+body.dark .kpi:nth-child(2){
+  background: linear-gradient(135deg,#450a0a,#7f1d1d);
+  border-color:#f87171;
+}
+body.dark .kpi:nth-child(2) b{color:#fecaca;}
+
+
+/* AVG DISCOUNT */
+.kpi:nth-child(3){
+  background: linear-gradient(135deg,#dbeafe,#bfdbfe);
+  border-color:#93c5fd;
+}
+.kpi:nth-child(3) b{color:#1e40af;}
+body.dark .kpi:nth-child(3){
+  background: linear-gradient(135deg,#0f172a,#1e3a8a);
+  border-color:#60a5fa;
+}
+body.dark .kpi:nth-child(3) b{color:#dbeafe;}
+
+
+/* WASTE REDUCTION IMPACT */
+.kpi:nth-child(4){
+  background: linear-gradient(135deg,#dcfce7,#bbf7d0);
+  border-color:#86efac;
+}
+.kpi:nth-child(4) b{color:#065f46;}
+body.dark .kpi:nth-child(4){
+  background: linear-gradient(135deg,#022c22,#064e3b);
+  border-color:#4ade80;
+}
+body.dark .kpi:nth-child(4) b{color:#bbf7d0;}

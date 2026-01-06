@@ -1,0 +1,320 @@
+/* ================= THEME ================= */
+
+:root {
+  --bg: linear-gradient(135deg,#eef2ff,#f8fafc);
+  --card: rgba(255,255,255,0.65);
+  --border: rgba(255,255,255,0.35);
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #2563eb;
+
+  --profit: #16a34a;
+  --loss: #dc2626;
+
+  --glass-blur: blur(18px);
+}
+
+body[data-theme="dark"] {
+  --bg: radial-gradient(circle at top,#020617,#000);
+  --card: rgba(15,23,42,0.75);
+  --border: rgba(96,165,250,0.25);
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #60a5fa;
+}
+
+/* ================= BASE ================= */
+
+* { box-sizing:border-box; }
+
+html,body {
+  margin:0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui,sans-serif;
+}
+
+.app {
+  display:flex;
+  min-height:100vh;
+  width:100%;
+}
+
+.page {
+  flex:1;
+}
+
+.container {
+  max-width:1200px;
+  margin:auto;
+  padding:32px;
+}
+
+/* ================= HEADER ================= */
+
+.header-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.subtitle {
+  color:var(--muted);
+}
+
+/* ================= BUTTONS ================= */
+
+.icon-btn {
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--text);
+}
+
+.primary {
+  background: var(--accent);
+  color:white;
+  padding:14px 24px;
+  border-radius:14px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  box-shadow:0 10px 30px rgba(37,99,235,.35);
+  transition:.3s;
+}
+
+.primary:hover {
+  transform:translateY(-2px);
+  box-shadow:0 18px 40px rgba(37,99,235,.45);
+}
+
+/* ================= GRID ================= */
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-top:32px;
+}
+
+/* ================= GLASS CARD ================= */
+
+.glass {
+  background: var(--card);
+  backdrop-filter: var(--glass-blur);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:24px;
+  position:relative;
+  transition:.45s cubic-bezier(.22,1,.36,1);
+}
+
+/* 🔥 REFINED GLASS GLOW */
+.glass::before {
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:22px;
+  background: linear-gradient(
+    135deg,
+    rgba(96,165,250,.55),
+    rgba(186,230,253,.45),
+    rgba(255,255,255,.35)
+  );
+  opacity:0;
+  z-index:-1;
+  transition:.45s ease;
+}
+
+/* Dark mode glow */
+body[data-theme="dark"] .glass::before {
+  background: linear-gradient(
+    135deg,
+    rgba(96,165,250,.75),
+    rgba(56,189,248,.6),
+    rgba(186,230,253,.35)
+  );
+}
+
+.glass:hover {
+  transform:translateY(-10px) scale(1.02);
+}
+
+.glass:hover::before {
+  opacity:1;
+}
+
+/* ================= STATIC AI PANEL ================= */
+
+.panel.glass:hover {
+  transform:none;
+}
+
+.panel.glass::before {
+  opacity:0 !important;
+}
+
+/* ================= METRICS ================= */
+
+.metric { margin-bottom:14px; }
+
+.metric-label {
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.progress-bg {
+  height:8px;
+  background:#e5e7eb;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progress {
+  height:8px;
+  border-radius:999px;
+  transition:width 1s cubic-bezier(.22,.61,.36,1);
+}
+
+.green { background:#22c55e; }
+.orange { background:#fb923c; }
+.red { background:#ef4444; }
+
+/* ================= PROFIT / LOSS ================= */
+
+.money {
+  margin-top:14px;
+  padding:12px;
+  border-radius:12px;
+  font-weight:700;
+  background:rgba(22,163,74,.15);
+  color:var(--profit);
+}
+
+/* ================= SIMULATION IMPACT ================= */
+
+.impact-card {
+  background: var(--card);
+  backdrop-filter: var(--glass-blur);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px;
+  text-align:center;
+  position:relative;
+  animation: impactPop .7s cubic-bezier(.22,1,.36,1) both;
+}
+
+.impact-card::before {
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:20px;
+  background: linear-gradient(
+    120deg,
+    rgba(96,165,250,.7),
+    rgba(186,230,253,.6)
+  );
+  opacity:0;
+  z-index:-1;
+  transition:.4s ease;
+}
+
+.impact-card:hover::before {
+  opacity:1;
+}
+
+.impact-card h2 {
+  margin-top:12px;
+  font-size:28px;
+  color:var(--accent);
+}
+
+/* ================= AI INSIGHT ================= */
+
+.ai-insight {
+  margin-top:40px;
+  box-shadow:
+    0 0 0 1px rgba(37,99,235,.25),
+    0 30px 80px rgba(37,99,235,.35);
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes impactPop {
+  from {
+    opacity:0;
+    transform:translateY(20px) scale(.95);
+  }
+  to {
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* ================= UTIL ================= */
+
+.hidden { display:none; }
+#brand-grid{
+    margin-bottom: 2rem;
+}
+/* ================= PROFIT / LOSS HIGHLIGHT ================= */
+
+.money {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: 700;
+}
+
+.money-label {
+  font-size: 13px;
+  letter-spacing: .02em;
+}
+
+.money-value {
+  font-size: 22px;
+}
+
+/* Profit */
+.money.profit {
+  background: rgba(22,163,74,.18);
+  color: #16a34a;
+  box-shadow: inset 0 0 0 1px rgba(22,163,74,.35);
+}
+
+/* Loss */
+.money.loss {
+  background: rgba(220,38,38,.18);
+  color: #dc2626;
+  box-shadow: inset 0 0 0 1px rgba(220,38,38,.35);
+}
+
+/* Impact Cards */
+.impact-card h2 {
+  margin-top: 10px;
+  font-size: 28px;
+}
+
+.impact-card.profit h2 {
+  color: #16a34a;
+}
+
+.impact-card.loss h2 {
+  color: #dc2626;
+}
+
+/* Insight text emphasis */
+.profit-text {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.loss-text {
+  color: #dc2626;
+  font-weight: 600;
+}

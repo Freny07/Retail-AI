@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Brand Comparison & Replacement Intelligence</title>
+
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/comparison.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script defer src="js/sidebar.js"></script>
+  <script defer src="js/comparison.js"></script>
+</head>
+
+<body data-theme="light">
+
+<div class="app">
+  <div id="sidebarContainer"></div>
+
+  <main class="page">
+    <div class="container">
+
+      <!-- HEADER -->
+      <div class="header-row">
+        <div>
+          <h1>📊 Brand Comparison & Replacement Intelligence</h1>
+          <p class="subtitle">
+           Compare competing brands across performance, profitability, expiry risk, and customer preference to enable <br>smarter assortment and replacement decisions.
+          </p>
+        </div>
+
+        <button id="themeToggle" class="icon-btn">
+          <i data-lucide="moon"></i>
+        </button>
+      </div>
+
+      <!-- BRAND GRID -->
+      <section id="brand-grid" class="grid"></section>
+
+      <!-- REPLACEMENT -->
+      <section class="panel glass">
+        <h2>🔁 AI Replacement Simulation</h2>
+        <p id="worst-brand"></p>
+        <p id="best-brand"></p>
+
+        <button id="simulate-btn" class="primary">
+          ▶ Simulate Replacement Impact
+        </button>
+
+        <div id="impact-grid" class="grid hidden"></div>
+      </section>
+
+      <!-- AI INSIGHT -->
+      <section class="insight glass ai-insight">
+        🤖 <b>AI Insight:</b>
+        Removing low-ROI brands and reallocating shelf space
+        to high-demand alternatives significantly improves net profit.
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("components/sidebar.html")
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById("sidebarContainer").innerHTML = html;
+      loadSidebar();
+      lucide.createIcons();
+    });
+});
+</script>
+
+</body>
+</html>

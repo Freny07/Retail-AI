@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Demand Forecasting – RetailMind AI</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/trends.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Scripts -->
+  <script defer src="js/sidebar.js"></script>
+  <script defer src="js/trends.js"></script>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div id="sidebarContainer"></div>
+
+  <!-- Main Page -->
+  <main class="page">
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <!-- ACTIONS -->
+      <div class="header-actions">
+        <div class="forecast-toggle">
+          <button class="active" data-range="monthly">Monthly</button>
+          <button data-range="weekly">Weekly</button>
+        </div>
+
+        <button id="themeToggle" class="theme-btn">
+          <i data-lucide="moon"></i>
+        </button>
+      </div>
+
+      <div class="hero-content">
+        <div class="badge">✨ PREDICTIVE INTELLIGENCE</div>
+
+        <h1>
+          Demand Forecasting <br>
+          <span class="gradient-text">That Thinks Ahead</span>
+        </h1>
+
+        <p>
+          RetailMind AI analyzes historical demand and seasonal patterns
+          to forecast future sales — enabling confident stocking decisions
+          and eliminating guesswork.
+        </p>
+      </div>
+
+      <div class="glow glow-right"></div>
+      <div class="glow glow-left"></div>
+    </section>
+
+    <!-- KPIs -->
+    <section class="kpis">
+      <div class="kpi-card green">
+        <p class="label">Predicted Growth</p>
+        <p class="value">+18%</p>
+      </div>
+
+      <div class="kpi-card blue">
+        <p class="label">High Demand Category</p>
+        <p class="value">Dairy & Beverages</p>
+      </div>
+
+      <div class="kpi-card orange">
+        <p class="label">Underperforming SKUs</p>
+        <p class="value">7</p>
+      </div>
+    </section>
+
+    <!-- CHART -->
+    <section class="chart-section">
+      <div class="chart-card">
+        <div class="chart-header">
+          📊 <h2>Demand Forecast</h2>
+        </div>
+
+        <div class="chart-wrapper">
+          <canvas id="demandChart"></canvas>
+        </div>
+
+        <div class="insight-chip">
+          🤖 AI Insight: Demand peaks during April–May. Pre-stocking dairy
+          and beverages can significantly boost revenue.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sidebar loader -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("components/sidebar.html")
+        .then(r => r.text())
+        .then(html => {
+          document.getElementById("sidebarContainer").innerHTML = html;
+          loadSidebar();
+          lucide.createIcons();
+          document.body.classList.add("sidebar-loaded");
+        });
+    });
+  </script>
+</body>
+</html>

@@ -14,13 +14,13 @@ function loginUser() {
   }
 
   localStorage.setItem("gumasto_logged_in", "true");
-  window.location.href = "../DASHBOARD/dashboard.html";
+  window.location.href = "../dashboard.html";
 }
 
 /* GUEST */
 function continueAsGuest() {
   localStorage.removeItem("gumasto_logged_in");
-  window.location.href = "../DASHBOARD/dashboard.html";
+  window.location.href = "../dashboard.html";
 }
 
 /* PASSWORD MATCH VALIDATION (LIVE) */
@@ -65,7 +65,7 @@ function signupUser() {
   if (hasError) return;
 
   localStorage.setItem("gumasto_logged_in", "true");
-  window.location.href = "../DASHBOARD/dashboard.html";
+  window.location.href = "../dashboard.html";
 }
 
 /* FORGOT PASSWORD */
@@ -78,11 +78,11 @@ function goReset() {
   }
 
   input.classList.remove("input-error");
-  window.location.href = "reset-password.html";
+  window.location.href = "../auth/reset-password.html";
 }
 
 /* RESET PASSWORD */
 function resetPassword() {
   localStorage.setItem("gumasto_logged_in", "true");
-  window.location.href = "../DASHBOARD/dashboard.html";
+  window.location.href = "../dashboard.html";
 }

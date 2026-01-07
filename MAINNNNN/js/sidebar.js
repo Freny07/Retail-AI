@@ -48,17 +48,30 @@ function toggleSidebar(){
 
 const darkBtn = document.getElementById("darkToggle");
 
-if(localStorage.getItem("darkMode")==="on"){
+/* Apply theme on page load */
+if (localStorage.getItem("darkMode") === "on") {
   document.body.classList.add("dark");
 }
 
-darkBtn.addEventListener("click",()=>{
-  document.body.classList.toggle("dark");
-  localStorage.setItem("darkMode",
-    document.body.classList.contains("dark") ? "on" : "off"
-  );
-});
+/* Set correct icon on load */
+if (darkBtn) {
+  darkBtn.innerHTML = document.body.classList.contains("dark")
+    ? '<i data-lucide="sun"></i>'
+    : '<i data-lucide="moon"></i>';
+  lucide.createIcons();
+}
 
-document.getElementById("darkToggle").addEventListener("click",()=>{
-  setTimeout(()=>lucide.createIcons(),100);
-});
+/* Toggle theme + icon */
+if (darkBtn) {
+  darkBtn.addEventListener("click", () => {
+    const isDark = document.body.classList.toggle("dark");
+
+    localStorage.setItem("darkMode", isDark ? "on" : "off");
+
+    darkBtn.innerHTML = isDark
+      ? '<i data-lucide="sun"></i>'
+      : '<i data-lucide="moon"></i>';
+
+    lucide.createIcons();
+  });
+}

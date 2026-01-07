@@ -16,7 +16,7 @@ body {
 
 /* HERO */
 .hero {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: linear-gradient(360deg,#6606d3fb, #1115ef,#0c0e79fb);
   border-radius: 28px;
   padding: 48px;
   color: white;
@@ -24,7 +24,7 @@ body {
 }
 
 .hero span {
-  color: #fde047;
+  color: #47fd4d;
 }
 
 .hero h1 {
@@ -68,7 +68,7 @@ body {
 
 .upload-card,
 .format-card {
-  background: white;
+  background: rgba(245, 241, 241, 0.523);
   padding: 24px;
   border-radius: 18px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.05);
@@ -137,11 +137,237 @@ body {
   border-radius: 18px;
 }
 
-.highlight.orange { background: #ffedd5; }
-.highlight.blue   { background: #dbeafe; }
-.highlight.green  { background: #dcfce7; }
+.highlight.orange { background: linear-gradient(135deg, #eba6258e, #edde3a82); }
+.highlight.blue   { background: linear-gradient(135deg, #9225eb77, #ed3aed95); }
+.highlight.green  { background: linear-gradient(135deg, #25eb7b8e, #3aedea98); }
 
 .note {
   font-size: 13px;
-  color: #64748b;
+  color: #1e2b30d3;
+}
+
+/* ===================================================== */
+/* =============== VISUAL ENHANCEMENTS ================= */
+/* =============== (NO CONTENT CHANGES) ================= */
+/* ===================================================== */
+
+/* Smooth micro-interactions */
+.feature-card,
+.upload-card,
+.format-card,
+.stat-card,
+.highlight,
+.hero,
+.upload-card button,
+.section-title {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Floating cards */
+.feature-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.18);
+}
+
+.upload-card:hover,
+.format-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.18);
+}
+
+.highlight:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 38px rgba(0,0,0,0.25);
+}
+
+/* Soft glow overlay */
+.feature-card,
+.upload-card,
+.format-card,
+.stat-card,
+.highlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::after,
+.upload-card::after,
+.format-card::after,
+.stat-card::after,
+.highlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top left,
+    rgba(255,255,255,0.45),
+    transparent 60%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.feature-card:hover::after,
+.upload-card:hover::after,
+.format-card:hover::after,
+.stat-card:hover::after,
+.highlight:hover::after {
+  opacity: 1;
+}
+
+/* Hero shine */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,0.35),
+    transparent 70%
+  );
+}
+
+/* Button hover feedback */
+.upload-card button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+
+/* Subtle section title motion */
+.section-title:hover {
+  transform: translateX(4px);
+}
+
+/* ================= FEATURE CARD COLOR IDENTITY ================= */
+
+/* AI Intelligence Layer */
+.feature-card:nth-child(1) {
+  border: 3px solid #8b058477;
+  background: linear-gradient(
+    135deg,
+    rgba(135, 15, 168, 0.687) ,
+    rgba(220, 98, 194, 0.708) 60%
+  );
+}
+
+.feature-card:nth-child(1):hover {
+  box-shadow: 0 22px 45px rgba(252, 25, 241, 0.217);
+}
+
+/* Simulation First Approach */
+.feature-card:nth-child(2) {
+  border: 3px solid #7c3aed;
+  background: linear-gradient(
+    135deg,
+    rgba(102, 24, 236, 0.37),
+    rgb(87, 160, 209) 60%
+  );
+}
+
+.feature-card:nth-child(2):hover {
+  box-shadow: 0 22px 45px rgba(100, 25, 229, 0.35);
+}
+
+/* Sustainability by Design */
+.feature-card:nth-child(3) {
+  border: 3px solid #3ace46;
+  background: linear-gradient(
+    135deg,
+    rgb(92, 232, 106),
+    rgba(56, 200, 152, 0.783) 60%
+  );
+}
+
+.feature-card:nth-child(3):hover {
+  box-shadow: 0 22px 45px rgba(34, 197, 94, 0.35);
+}
+
+/* ================= EXECUTIVE OVERVIEW COLOR ================= */
+
+.stats .stat-card:nth-child(1) {
+  border: 2.5px solid #ef4444;
+  background: linear-gradient(
+    135deg,
+    rgba(239, 134, 68, 0.477),
+    rgb(232, 124, 124) 65%
+  );
+}
+
+.stats .stat-card:nth-child(2) {
+  border: 2.5px solid #22c55e;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.594),
+    rgb(72, 158, 102) 65%
+  );
+}
+
+.stats .stat-card:nth-child(3) {
+  border: 2.5px solid #f59e0b;
+  background: linear-gradient(
+    135deg,
+    rgba(226, 153, 28, 0.557),
+    rgba(228, 165, 19, 0.603) 65%
+  );
+}
+
+.stats .stat-card:nth-child(4) {
+  border: 2.5px solid #3b82f6;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 131, 246, 0.463),
+    rgba(84, 148, 200, 0.829) 65%
+  );
+}
+
+/* ================= UPLOAD INVENTORY BORDER ================= */
+
+.upload-card {
+  border: 2px solid #4e1ccdc8;
+}
+
+.format-card {
+  border: 2px solid #5b1eb0dd;
+}
+
+/* ================= DASHBOARD THEME BUTTON ================= */
+
+.theme-btn {
+  position: fixed;
+  top: 16px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.906);
+  backdrop-filter: blur(14px);
+  border: none;
+  color: rgb(24, 24, 24);
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+}
+
+.theme-btn:hover {
+  transform: scale(1.1);
+}
+
+
+body.dark .theme-btn {
+  background: rgba(215, 206, 206, 0.916);
 }

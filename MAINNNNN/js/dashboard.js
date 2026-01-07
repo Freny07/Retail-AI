@@ -2,6 +2,14 @@ const countrySelect = document.getElementById("countrySelect");
 const currencySelect = document.getElementById("currencySelect");
 const uploadBtn = document.getElementById("uploadBtn");
 const csvInput = document.getElementById("csvFile");
+const errorMsg = document.createElement("div");
+errorMsg.style.color = "#dc2626";
+errorMsg.style.fontSize = "14px";
+errorMsg.style.marginTop = "12px";
+errorMsg.style.fontWeight = "600";
+errorMsg.style.display = "none";
+uploadBtn.insertAdjacentElement("afterend", errorMsg);
+
 
 /* ===============================
    EMBEDDED WORLD COUNTRIES & CURRENCIES
@@ -266,12 +274,55 @@ csvInput.addEventListener("change", () => {
   const reader = new FileReader();
 
   reader.onload = () => {
-    localStorage.setItem("inventoryCSV", reader.result);
+    errorMsg.style.display = "none";
+
+    const text = reader.result;
+    const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
+
+    if (lines.length === 0) {
+      errorMsg.textContent = "CSV file is empty.";
+      errorMsg.style.display = "block";
+      csvInput.value = "";
+      return;
+    }
+
+    const normalize = str =>
+      str.toLowerCase().replace(/[\s-_]/g, "");
+
+    const headers = lines[0].split(",").map(h => normalize(h));
+
+    const requiredColumns = [
+    "Product_name",
+    "Brand",
+    "Category",
+    "Price",
+    "Stock",
+    "Units_sold",
+    "Expiry_date"
+    ].map(normalize);
+
+    const missing = requiredColumns.filter(
+      col => !headers.includes(col)
+    );
+
+    if (missing.length > 0) {
+      errorMsg.innerHTML =
+        "Missing required columns:<br>" +
+        missing.map(m => `• ${m}`).join("<br>");
+      errorMsg.style.display = "block";
+      csvInput.value = "";
+      return;
+    }
+
+  // extra columns ignored automatically
+    localStorage.setItem("inventoryCSV", text);
+
     alert(
       "CSV uploaded successfully.\n" +
       "Country & currency linked automatically."
     );
   };
+
 
   reader.readAsText(file);
 });

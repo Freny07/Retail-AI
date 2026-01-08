@@ -17,7 +17,6 @@
 </head>
 
 <body>
-
 <div class="layout">
 
   <!-- Sidebar -->
@@ -26,6 +25,12 @@
   <!-- Main Content -->
   <main class="main">
 
+    <!--Theme toggle-->
+    <button id="themeToggle" class="theme-btn">
+          <i data-lucide="moon"></i>
+        </button>
+
+    <!-- Hero Header -->
     <header>
       <h1>Waste Management</h1>
       <p>Smart actions to minimize retail loss</p>
@@ -56,10 +61,31 @@
 
     </section>
 
-    <!-- Chart -->
+    <!-- Info Line -->
+    <div class="card-info">
+      Click on the card to view insight regarding the required management of waste.
+    </div>
+
+    <!-- Chart Section -->
     <section class="chart-box">
       <h3>Waste Action Overview</h3>
       <canvas id="wasteChart"></canvas>
+    </section>
+
+    <!-- AI Insights -->
+    <section class="ai-insights">
+      <div class="ai-card">
+        <h4>AI Prediction</h4>
+        <p>Dispose items flagged as expired to minimize loss.</p>
+      </div>
+      <div class="ai-card">
+        <h4>Optimal Donation</h4>
+        <p>Recommend nearby NGOs for surplus inventory.</p>
+      </div>
+      <div class="ai-card">
+        <h4>Sales Insights</h4>
+        <p>Highlight items eligible for discounts and sale.</p>
+      </div>
     </section>
 
   </main>
@@ -76,7 +102,7 @@
     });
 </script>
 
-<!-- Waste Page JS -->
+<!-- Futuristic Waste Page JS -->
 <script src="js/waste.js"></script>
 
 </body>

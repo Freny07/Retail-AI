@@ -1,75 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sale Items</title>
+<meta charset="UTF-8">
+<title>Sale Items</title>
 
-  <!-- Core styles -->
-  <link rel="stylesheet" href="css/waste.css">
-  <link rel="stylesheet" href="css/sidebar.css">
-  <link rel="stylesheet" href="css/waste-common.css">
+<link rel="stylesheet" href="css/waste.css">
+<link rel="stylesheet" href="css/sidebar.css">
+<link rel="stylesheet" href="css/wsale.css">
 
-  <!-- Libraries -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- Sidebar -->
-  <script defer src="js/sidebar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script defer src="js/sidebar.js"></script>
 </head>
 
 <body>
 
 <div class="layout">
-
-  <!-- Sidebar -->
   <div id="sidebarContainer"></div>
 
-  <!-- Main -->
-  <main class="main">
+  <main class="main action-page">
 
-    <header>
-      <h1>Sale Items</h1>
-      <p>Products performing well in active sales</p>
-    </header>
+    <!--Theme toggle-->
+    <button id="themeToggle" class="theme-btn">
+          <i data-lucide="moon"></i>
+        </button>
 
-    <!-- Items -->
-    <section class="cards">
-      <div class="card sale">
-        <span>Cold Drinks</span>
-        <strong>60</strong>
+    <!-- Hero -->
+    <section class="sale-hero">
+      <h1>Sale Items Intelligence</h1>
+      <p>AI-powered insights to manage ongoing sales and discount items efficiently.</p>
+    </section>
+
+    <!-- Metrics -->
+    <section class="metric-row">
+      <div class="metric sale-metric1">
+        <span>Total Items</span>
+        <strong>48</strong>
       </div>
-
-      <div class="card sale">
-        <span>Chips</span>
-        <strong>45</strong>
+      <div class="metric sale-metric2">
+        <span>Urgent Sale</span>
+        <strong>9</strong>
+      </div>
+      <div class="metric sale-metric3">
+        <span>Safe Inventory</span>
+        <strong>31</strong>
+      </div>
+      <div class="metric sale-metric4">
+        <span>Avg Shelf Life</span>
+        <strong>14 days</strong>
       </div>
     </section>
 
-    <!-- Chart -->
-    <section class="chart-box">
-      <h3>Sales Overview</h3>
-      <canvas id="barChart"></canvas>
+    <!-- BIG Chart -->
+    <section class="sale-chart-wrap large-chart">
+      <canvas id="saleChart"></canvas>
     </section>
+
+    <!-- Filter -->
+    <section class="filter-row">
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Food">Food</option>
+        <option value="Furniture">Furniture</option>
+        <option value="Clothing">Clothing</option>
+      </select>
+    </section>
+
+    <!-- Table -->
+    <section class="table-wrap">
+      <table class="cyber-table" id="saleTable">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Days to Expiry</th>
+            <th>Discount %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-category="Electronics">
+            <td>Headphones</td>
+            <td>Electronics</td>
+            <td>30</td>
+            <td>20</td>
+          </tr>
+          <tr data-category="Food">
+            <td>Olive Oil</td>
+            <td>Food</td>
+            <td>180</td>
+            <td>15</td>
+          </tr>
+          <tr data-category="Furniture">
+            <td>Chair Set</td>
+            <td>Furniture</td>
+            <td>365</td>
+            <td>10</td>
+          </tr>
+          <tr data-category="Clothing">
+            <td>T-Shirt Pack</td>
+            <td>Clothing</td>
+            <td>90</td>
+            <td>25</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- AI Insights -->
+    <section class="insights">
+      <div class="insight-card sale-insight1">
+        <h4>Sale Priority</h4>
+        <p>Electronics and food items should be promoted first.</p>
+      </div>
+      <div class="insight-card sale-insight2">
+        <h4>Profit Match</h4>
+        <p>Optimized discounts prevent revenue loss.</p>
+      </div>
+      <div class="insight-card sale-insight3">
+        <h4>Stock Management</h4>
+        <p>Estimated savings: <strong>₹42,000</strong></p>
+      </div>
+    </section>
+
+    <!-- Back -->
+    <div class="back-row">
+      <a href="waste.html" class="sale-back-btn">← Back to Waste Management</a>
+    </div>
 
   </main>
 </div>
 
-<!-- Sidebar loader -->
 <script>
-  fetch("components/sidebar.html")
-    .then(r => r.text())
-    .then(h => {
-      document.getElementById("sidebarContainer").innerHTML = h;
-      loadSidebar();
-      lucide.createIcons();
-    });
+fetch("components/sidebar.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("sidebarContainer").innerHTML = html;
+    loadSidebar();
+    lucide.createIcons();
+  });
 </script>
 
-<!-- Page config -->
-<script>
-  const DEFAULT_CATEGORY = "Sale";
-</script>
-<script src="js/waste-common.js"></script>
-
+<script src="js/wsale.js"></script>
 </body>
 </html>

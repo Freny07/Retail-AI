@@ -1,75 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Discount Items</title>
+<meta charset="UTF-8">
+<title>WDISCOUNT Page</title>
 
-  <!-- Core styles -->
-  <link rel="stylesheet" href="css/waste.css">
-  <link rel="stylesheet" href="css/sidebar.css">
-  <link rel="stylesheet" href="css/waste-common.css">
+<link rel="stylesheet" href="css/waste.css">
+<link rel="stylesheet" href="css/sidebar.css">
+<link rel="stylesheet" href="css/wdiscount.css">
 
-  <!-- Libraries -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- Sidebar -->
-  <script defer src="js/sidebar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+<script src="https://unpkg.com/lucide@latest" defer></script>
+<script defer src="js/sidebar.js"></script>
+<script defer src="js/wdiscount.js"></script>
 </head>
 
 <body>
 
 <div class="layout">
-
-  <!-- Sidebar -->
   <div id="sidebarContainer"></div>
 
-  <!-- Main -->
-  <main class="main">
+  <main class="main action-page">
 
-    <header>
-      <h1>Discount Items</h1>
-      <p>Products offered at discounted prices</p>
-    </header>
+    <!--Theme toggle-->
+    <button id="themeToggle" class="theme-btn">
+          <i data-lucide="moon"></i>
+        </button>
+        
+    <!-- Hero -->
+    <section class="hero-card discount-hero">
+      <h1>Discounts Intelligence</h1>
+      <p>AI-powered insights to track expiring inventory and maximize discounts.</p>
+    </section>
 
-    <!-- Items -->
-    <section class="cards">
-      <div class="card discount">
-        <span>Biscuits</span>
-        <strong>50</strong>
+    <!-- Metrics -->
+    <section class="metric-row">
+      <div class="metric discount-metric1">
+        <span>Total Items</span>
+        <strong>56</strong>
       </div>
-
-      <div class="card discount">
-        <span>Snack Packs</span>
-        <strong>40</strong>
+      <div class="metric discount-metric2">
+        <span>Items on Discount</span>
+        <strong>18</strong>
+      </div>
+      <div class="metric discount-metric3">
+        <span>High Priority</span>
+        <strong>22</strong>
+      </div>
+      <div class="metric discount-metric4">
+        <span>Avg Discount %</span>
+        <strong>18%</strong>
       </div>
     </section>
 
-    <!-- Chart -->
-    <section class="chart-box">
-      <h3>Discount Overview</h3>
-      <canvas id="barChart"></canvas>
+    <!-- BIG Chart -->
+    <section class="chart-wrap large-chart discount-chart-wrap">
+      <canvas id="discountChart"></canvas>
     </section>
+
+    <!-- Filter -->
+    <section class="filter-row">
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Groceries">Groceries</option>
+        <option value="Furniture">Furniture</option>
+        <option value="Clothing">Clothing</option>
+      </select>
+    </section>
+
+    <!-- Table -->
+    <section class="table-wrap">
+      <table class="cyber-table" id="discountTable">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Original Price</th>
+            <th>Discount</th>
+            <th>Final Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-category="Electronics">
+            <td>Headphones</td>
+            <td>Electronics</td>
+            <td>$120</td>
+            <td>20%</td>
+            <td>$96</td>
+          </tr>
+          <tr data-category="Groceries">
+            <td>Olive Oil</td>
+            <td>Groceries</td>
+            <td>$25</td>
+            <td>15%</td>
+            <td>$21.25</td>
+          </tr>
+          <tr data-category="Furniture">
+            <td>Chair Set</td>
+            <td>Furniture</td>
+            <td>$200</td>
+            <td>10%</td>
+            <td>$180</td>
+          </tr>
+          <tr data-category="Clothing">
+            <td>T-Shirt Pack</td>
+            <td>Clothing</td>
+            <td>$40</td>
+            <td>25%</td>
+            <td>$30</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- AI Insights -->
+    <section class="insights">
+      <div class="insight-card discount-insight1">
+        <h4>Discount Priority</h4>
+        <p>Electronics and Clothing should be promoted first to avoid loss.</p>
+      </div>
+      <div class="insight-card discount-insight2">
+        <h4>Inventory Match</h4>
+        <p>Top-selling items on discount: 62% absorption expected.</p>
+      </div>
+      <div class="insight-card discount-insight3">
+        <h4>Estimated Savings</h4>
+        <p>Projected revenue recovery: <strong>$5,800</strong></p>
+      </div>
+    </section>
+
+    <!-- Back -->
+    <div class="back-row">
+      <a href="waste.html" class="back-btn discount-back-btn">← Back to Waste Management</a>
+    </div>
 
   </main>
 </div>
 
-<!-- Sidebar loader -->
 <script>
+  // Load sidebar first
   fetch("components/sidebar.html")
-    .then(r => r.text())
-    .then(h => {
-      document.getElementById("sidebarContainer").innerHTML = h;
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("sidebarContainer").innerHTML = html;
       loadSidebar();
       lucide.createIcons();
     });
 </script>
-
-<!-- Page config -->
-<script>
-  const DEFAULT_CATEGORY = "Discount";
-</script>
-<script src="js/waste-common.js"></script>
 
 </body>
 </html>

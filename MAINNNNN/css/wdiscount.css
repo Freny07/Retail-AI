@@ -1,0 +1,211 @@
+/* ====== Root Colors ====== */
+:root {
+  --orange-dark: #d97706;        /* deep burnt orange */
+  --orange-medium: #f97316;      /* medium orange */
+  --orange-light: #ffedd5;       /* soft light orange */
+  --yellow-light: #fde68a;       /* golden yellow */
+  --yellow-soft: #fff7e0;        /* pale yellow */
+  --text-dark: #1e3a8a;          /* professional dark text */
+  --text-light: #f3f4f6;         /* light text for dark backgrounds */
+  --border-light: rgba(255,180,60,.25);
+}
+
+/* ====== Hero Card ====== */
+.discount-hero {
+  padding: 38px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, var(--orange-dark), var(--orange-medium), var(--yellow-light));
+  color: var(--text-light);
+  box-shadow: 0 25px 70px rgba(217,119,6,.35);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.discount-hero:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 35px 85px rgba(217,119,6,.45);
+}
+
+.discount-hero h1 {
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.discount-hero p {
+  margin-top: 10px;
+  font-size: 16px;
+  opacity: .95;
+}
+
+/* ====== Metrics Cards ====== */
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin: 44px 0;
+}
+
+.metric {
+  padding: 22px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--orange-light), var(--yellow-soft));
+  box-shadow: 0 10px 35px rgba(217,119,6,.18), 0 0 10px rgba(255,214,153,0.15) inset;
+  backdrop-filter: blur(6px);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.metric:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 50px rgba(217,119,6,.25), 0 0 20px rgba(255,214,153,0.2) inset;
+}
+
+.metric span {
+  font-size: 14px;
+  color: #475569;
+}
+
+.metric strong {
+  display: block;
+  font-size: 28px;
+  margin-top: 6px;
+  color: var(--text-dark);
+}
+
+/* Metric colors - subtle gradients for variety */
+.discount-metric1 { background: linear-gradient(135deg, #fff7e0, #fde68a); }
+.discount-metric2 { background: linear-gradient(135deg, #fff7e0, #ffedd5); }
+.discount-metric3 { background: linear-gradient(135deg, #fff4cc, #fde68a); }
+.discount-metric4 { background: linear-gradient(135deg, #fff4cc, #ffd699); }
+
+/* ====== Chart Container ====== */
+.discount-chart-wrap {
+  background: var(--yellow-soft);
+  border-radius: 26px;
+  padding: 34px;
+  max-width: 1100px;
+  margin: 0 auto 52px;
+  box-shadow: 0 15px 50px rgba(217,119,6,.18);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.discount-chart-wrap:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 25px 70px rgba(217,119,6,.25);
+}
+
+/* Chart canvas sizing */
+.large-chart canvas {
+  width: 100% !important;
+  height: 400px !important;
+}
+
+/* ====== Filter Row ====== */
+.filter-row {
+  margin: 10px 0 40px;
+}
+
+.filter-row select {
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(217,119,6,.3);
+  background: var(--yellow-soft);
+  font-size: 15px;
+  box-shadow: 0 8px 20px rgba(15,23,42,.08);
+}
+
+/* ====== Table ====== */
+.cyber-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fffaf0;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(15,23,42,.12);
+}
+
+.cyber-table th {
+  background: var(--orange-light);
+  padding: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.cyber-table td {
+  padding: 16px 18px;
+  border-top: 1px solid var(--border-light);
+}
+
+.cyber-table tr {
+  transition: background .2s ease, transform .2s ease;
+}
+
+.cyber-table tr:nth-child(even) {
+  background: #fff4e0; /* alternating row for depth */
+}
+
+.cyber-table tr:hover {
+  background: #fff0d6;
+  transform: scale(1.01);
+}
+
+/* ====== Insights Cards ====== */
+.insights {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 22px;
+  margin-bottom: 42px;
+}
+
+.insight-card {
+  padding: 22px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--yellow-soft), var(--orange-light));
+  box-shadow: 0 12px 45px rgba(217,119,6,.2), 0 0 20px rgba(255,214,153,0.1) inset;
+  backdrop-filter: blur(8px);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.insight-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 70px rgba(217,119,6,.3), 0 0 25px rgba(255,214,153,0.15) inset;
+}
+
+.insight-card h4 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: var(--text-dark);
+}
+
+/* Optional per card overrides */
+.discount-insight1 { background: linear-gradient(135deg, #fff4e0, #fde68a); }
+.discount-insight2 { background: linear-gradient(135deg, #fff4e0, #ffedd5); }
+.discount-insight3 { background: linear-gradient(135deg, #fff4e0, #ffd699); }
+
+/* ====== Back Button ====== */
+.back-row {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.discount-back-btn {
+  padding: 14px 28px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #fce180, #f7c948);
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 12px 35px rgba(250,204,21,.35);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.discount-back-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 50px rgba(250,204,21,.5);
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+  .metric-row { grid-template-columns: repeat(2, 1fr); }
+  .insights { grid-template-columns: 1fr; }
+  .large-chart canvas { height: 360px !important; }
+}

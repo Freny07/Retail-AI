@@ -1,37 +1,29 @@
-/* ================= THEME VARIABLES ================= */
-
-:root{
+/* ================= BASE VARIABLES ================= */
+:root {
   --bg-main: #ffffff;
   --card-bg: #ffffff;
   --text-main: #0f172a;
   --text-muted: #64748b;
   --border-soft: #e5e7eb;
   --hero-grad: linear-gradient(135deg,#ff8a00,#ffd54f);
-  --table-head: #f8fafc;
+  --ai-grad1: #e0f2fe;
+  --ai-grad2: #dbeafe;
+  --ai-grad3: #cffafe;
+  --neon-blue: #3b82f6;
+  --neon-pink: #ec4899;
 }
 
-body.dark{
-  --bg-main: #020617;
-  --card-bg: #0f172a;
-  --text-main: #e5e7eb;
-  --text-muted: #94a3b8;
-  --border-soft: #1e293b;
-  --hero-grad: linear-gradient(135deg,#1f2937,#020617);
-  --table-head: #020617;
-}
-
-/* ================= BASE ================= */
-
+/* ================= BODY ================= */
 body {
   margin: 0;
-  font-family: system-ui;
-  background: #ffffff;
+  font-family: system-ui, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
   height: 100%;
   width: 100%;
 }
 
-/* ================= LAYOUT (SAFE FIX) ================= */
-
+/* ================= LAYOUT ================= */
 .layout {
   display: flex;
   min-height: 100vh;
@@ -41,64 +33,100 @@ body {
   flex-shrink: 0;
 }
 
-/* ================= PAGE ================= */
-
+/* ================= MAIN PAGE ================= */
 .main {
   flex: 1;
-  padding: 24px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
   gap: 28px;
-  background: #ffffff;
-  color: var(--text-main);
   overflow-y: auto;
 }
 
-/* ================= HEADER ================= */
+/* ================= HERO HEADER ================= */
+header {
+  position: relative;
+  padding: 28px 32px;
+  border-radius: 28px;
+  background: var(--hero-grad);
+  box-shadow: 0 22px 65px rgba(255,138,0,.35), 0 0 45px rgba(255,213,79,.25) inset;
+  color: #fff;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+header:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 80px rgba(255,138,0,.45), 0 0 55px rgba(255,213,79,.3) inset;
+}
 
 header h1 {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
 }
 
 header p {
-  font-size: 19px;
-  color: var(--text-muted);
-  margin-top: 6px;
+  font-size: 18px;
+  margin-top: 8px;
+  opacity: .95;
 }
 
-/* ================= CARDS ================= */
+/* THEME BUTTON */
+.theme-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(14px);
+  border: 2px solid rgba(255,255,255,0.3); /* optional for visibility */
+  color: rgb(1, 1, 4);
+  cursor: pointer;
+  position: fixed;     /* stays in place while scrolling */
+  top: 20px;           /* distance from top */
+  right: 20px;         /* distance from right */
+  z-index: 9999;       /* on top of other elements */
+}
 
+
+/* ================= ACTION CARDS ================= */
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
-  margin: 26px 0;
 }
 
 .card {
   background: var(--card-bg);
-  border: 1px solid var(--border-soft);
-  padding: 18px 20px;
-  border-radius: 18px;
+  border-radius: 20px;
+  padding: 20px 22px;
   cursor: pointer;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 12px 28px rgba(0,0,0,.05), inset 0 0 6px rgba(0,0,0,.03);
   transition: all 0.25s ease;
-  box-shadow: 0 8px 25px rgba(0,0,0,.04);
+  position: relative;
+  text-decoration: none; /* remove underlines */
 }
 
 .card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 22px 50px rgba(0,0,0,.15);
+  box-shadow: 0 24px 55px rgba(0,0,0,.12), 0 0 22px rgba(0,0,0,.05) inset;
+}
+
+.card.active {
+  box-shadow: 0 28px 70px rgba(99,102,241,.3), 0 0 28px rgba(147,197,253,.2) inset;
 }
 
 .card span {
   font-size: 13px;
   color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
 }
 
 .card strong {
   display: block;
-  font-size: 26px;
+  font-size: 28px;
   margin-top: 6px;
   font-weight: 700;
   color: var(--text-main);
@@ -110,79 +138,106 @@ header p {
 .discount { background:#ffedd5; color:#c2410c; }
 .sale { background:#dcfce7; color:#15803d; }
 
-/* ================= FUTURISTIC GRAPH ================= */
-
-.chart-box {
-  position: relative;
-  background: radial-gradient(
-    120% 120% at 10% 10%,
-    #ffffff 0%,
-    #f8fafc 60%,
-    #eef2ff 100%
-  );
-  border: 1px solid rgba(99,102,241,0.25);
-  padding: 24px 26px 22px;
-  border-radius: 22px;
-  max-width: 950px;
-  box-shadow:
-    0 20px 45px rgba(0,0,0,0.08),
-    inset 0 0 0 1px rgba(255,255,255,0.6);
-  overflow: hidden;
-}
-
-/* subtle glow line */
-.chart-box::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 22px;
-  pointer-events: none;
-  box-shadow: inset 0 0 60px rgba(99,102,241,0.12);
-}
-
-.chart-box h3 {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 14px;
-  color: #0f172a;
+/* ================= CARD INFO LINE ================= */
+.card-info {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-top: -12px;
+  margin-bottom: 22px;
   letter-spacing: 0.4px;
 }
 
+/* ================= FUTURISTIC CHART ================= */
+.chart-box {
+  position: relative;
+  background: radial-gradient(circle at 10% 10%, #ffffff 0%, #f8fafc 50%, #eef2ff 100%);
+  border-radius: 22px;
+  padding: 26px 28px;
+  width: 600px;           /* fixed width */
+  margin: 0 auto 28px;    /* centered horizontally */
+  box-shadow: 0 28px 70px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,0.6);
+  overflow: hidden;
+}
+
+.chart-box::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:22px;
+  pointer-events:none;
+  box-shadow: inset 0 0 80px rgba(99,102,241,0.15);
+}
+
+.chart-box h3 {
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:12px;
+  color:#0f172a;
+  letter-spacing:0.4px;
+  text-align: center;
+}
+
 .chart-box canvas {
-  max-height: 350px;
-  filter: drop-shadow(0 10px 18px rgba(99,102,241,0.25));
+  width: 100% !important;  /* canvas fills the 600px container */
+  height: 250px !important;
+  filter: drop-shadow(0 14px 22px rgba(99,102,241,0.3));
+  display: block;
+  margin: 0 auto;
 }
 
 
-/* ================= INFO BAR ================= */
+/* ================= AI INSIGHT CARDS CONTAINER ================= */
+.ai-insights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* keeps 3 cards in a row */
+  gap: 22px;
+  margin-bottom: 42px;
+}
 
-.info {
-  padding: 14px 16px;
-  background: #ecfeff;
-  color: #0369a1;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 500;
+/* Ensure responsive remains consistent */
+@media (max-width: 768px) {
+  .ai-insights {
+    grid-template-columns: 1fr; /* stacked only on mobile */
+  }
+}
+
+/* ================= AI INSIGHT CARDS ================= */
+.ai-card {
+  padding: 22px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #e0f7e9, #a7f3d0); /* light green gradient */
+  box-shadow: 0 12px 45px rgba(37,99,235,.18), 0 0 20px rgba(160,240,200,0.1) inset;
+  backdrop-filter: blur(6px);
+  transition: transform .25s ease, box-shadow .25s ease;
+  color: #064e3b;  /* visible text in light mode */
+}
+
+body.dark .ai-card {
+  background: linear-gradient(135deg, #064e3b, #065f46); /* dark mode gradient */
+  color: #d1fae5; /* visible text in dark mode */
+}
+
+.ai-card h4 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.ai-card p {
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 /* ================= RESPONSIVE ================= */
-
 @media (max-width: 1100px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .cards { grid-template-columns: repeat(2,1fr); }
+  .ai-insights { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
-  .layout {
-    flex-direction: column;
-  }
-
-  .cards {
-    grid-template-columns: 1fr;
-  }
-
-  .chart-box {
-    max-width: 100%;
-  }
+  .layout { flex-direction: column; }
+  .cards { grid-template-columns: 1fr; }
+  .chart-box { max-width: 100%; }
 }

@@ -17,70 +17,68 @@ const chart = new Chart(ctx, {
   type: "bar",
   data: {
     labels,
-    datasets: [
-      {
-        data: values,
-        backgroundColor: labels.map(l => colors[l]),
-        borderRadius: 12,
-        borderSkipped: false,
-        hoverBackgroundColor: labels.map(l => colors[l] + "cc"), // glow on hover
-        barPercentage: 0.6,
-      },
-    ],
+    datasets: [{
+      data: values,
+      backgroundColor: labels.map(l => colors[l]),
+      borderRadius: 14,
+      borderSkipped: false,
+      hoverBackgroundColor: labels.map(l => colors[l]+"cc"),
+      barPercentage: 0.65
+    }]
   },
   options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    animation: {
-      duration: 1000,
-      easing: "easeOutQuart"
-    },
-    onClick: (_, elements) => {
-      if (elements.length > 0) setActive(elements[0].index);
-    },
+    responsive:true,
+    maintainAspectRatio:false,
+    animation: { duration:1000, easing:"easeOutQuart" },
+    onClick: (_, elements) => { if(elements.length) setActive(elements[0].index); },
     plugins: {
-      legend: { display: false },
+      legend: { display:false },
       tooltip: {
-        backgroundColor: "#020617",
-        titleColor: "#e5e7eb",
-        bodyColor: "#c7d2fe",
-        padding: 12,
-        cornerRadius: 10,
+        backgroundColor:"#020617",
+        titleColor:"#e5e7eb",
+        bodyColor:"#c7d2fe",
+        padding:12,
+        cornerRadius:10
+      }
+    },
+    scales:{
+      x:{
+        grid:{display:false},
+        ticks:{ color:"#64748b", font:{weight:"600"} }
+      },
+      y:{
+        beginAtZero:true,
+        ticks:{ stepSize:1, color:"#64748b", font:{weight:"600"} },
+        grid:{ display:false }
       },
     },
-    scales: {
-      x: {
-        grid: { display: false },
-        ticks: { color: "#64748b", font: { weight: "600" } },
-      },
-      y: {
-        beginAtZero: true,
-        ticks: { stepSize: 1, color: "#64748b", font: { weight: "600" } },
-        grid: { color: "rgba(99,102,241,0.1)", borderDash: [5, 5] },
-      },
-    },
-  },
+  }
 });
 
-/* ---------- Interaction Logic ---------- */
+/* ---------- Card Interaction ---------- */
 const cards = document.querySelectorAll(".card");
 
-function setActive(index) {
+function setActive(index){
   activeIndex = index;
 
-  // Update chart bars: active neon effect
-  chart.data.datasets[0].backgroundColor = labels.map((l, i) =>
-    i === index
-      ? `linear-gradient(180deg, ${colors[l]} 0%, rgba(255,255,255,0.6) 80%)`
-      : `${colors[l]}55`
+  chart.data.datasets[0].backgroundColor = labels.map((l,i) =>
+    i===index ? `linear-gradient(180deg, ${colors[l]} 0%, rgba(255,255,255,0.6) 80%)` : colors[l]+"55"
   );
   chart.update();
 
-  // Update cards
-  cards.forEach((card, i) => card.classList.toggle("active", i === index));
+  cards.forEach((card,i)=> card.classList.toggle("active", i===index));
 }
 
-/* ---------- Card click → graph highlight ---------- */
-cards.forEach((card, index) => {
-  card.addEventListener("click", () => setActive(index));
+cards.forEach((card,index)=>{
+  card.addEventListener("click", ()=>setActive(index));
 });
+
+/* THEME */
+const t=document.getElementById("themeToggle");
+t.onclick=()=>{
+  document.body.classList.toggle("dark");
+  t.innerHTML=document.body.classList.contains("dark")
+    ?'<i data-lucide="sun"></i>'
+    :'<i data-lucide="moon"></i>';
+  lucide.createIcons();
+};

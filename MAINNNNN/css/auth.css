@@ -418,3 +418,27 @@ body.dark .auth-form a {
 body.dark .auth-form .error-text {
   color: #e91b1b;
 }
+
+/* ===== OTP INLINE BOX FIX ===== */
+
+.otp-inputs {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.otp-inputs input {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 0;
+}
+
+/* Disable typing when expired */
+.otp-inputs.disabled input {
+  pointer-events: none;
+  opacity: 0.6;
+}

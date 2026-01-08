@@ -156,20 +156,33 @@ select {
   box-shadow: 0 14px 36px rgba(0,0,0,.08);
 }
 
-/* ================= THEME BUTTON ================= */
 .theme-btn {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 18px;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  background: var(--card);
-  border: 1px solid var(--border);
-  box-shadow: 0 10px 26px rgba(0,0,0,.12);
+  background: rgba(255, 255, 255, 0.906);
+  backdrop-filter: blur(14px);
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  border: none;
+  color: rgb(24, 24, 24);
   cursor: pointer;
-  display: grid;
-  place-items: center;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  transition:.25s;
+}
+
+.theme-btn:hover {
+  transform: scale(1.1);
+}
+
+
+body.dark .theme-btn {
+  background: rgba(215, 206, 206, 0.916);
 }
 
 /* ================= DARK MODE BLUE TEXT OVERRIDE ================= */

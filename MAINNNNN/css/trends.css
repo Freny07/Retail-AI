@@ -93,18 +93,6 @@ body.sidebar-loaded .page { margin-left: 1rem; }
   color: white;
 }
 
-/* THEME BUTTON */
-.theme-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(14px);
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
 /* GLOW */
 .glow {
   position: absolute;
@@ -195,4 +183,34 @@ body.dark .chart-card {
 body.dark .insight-chip {
   background: rgba(59,130,246,.15);
   color: #93c5fd;
+}
+
+
+.theme-btn {
+  position: fixed;
+  top: 16px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.906);
+  backdrop-filter: blur(14px);
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  border: none;
+  color: rgb(24, 24, 24);
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  transition:.25s;
+}
+
+.theme-btn:hover {
+  transform: scale(1.1);
+}
+
+
+body.dark .theme-btn {
+  background: rgba(215, 206, 206, 0.916);
 }

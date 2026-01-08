@@ -43,12 +43,3 @@ window.addEventListener("load", () => {
     });
   });
 });
-/* THEME */
-const t=document.getElementById("themeToggle");
-t.onclick=()=>{
-  document.body.classList.toggle("dark");
-  t.innerHTML=document.body.classList.contains("dark")
-    ?'<i data-lucide="sun"></i>'
-    :'<i data-lucide="moon"></i>';
-  lucide.createIcons();
-};

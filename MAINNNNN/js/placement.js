@@ -44,12 +44,3 @@ select.addEventListener("change", () => {
   insight.textContent =
     "Eye-level shelves and checkout zones capture the highest customer attention.";
 });
-
-/* THEME */
-themeToggle.onclick = () => {
-  document.body.classList.toggle("dark");
-  themeToggle.innerHTML = document.body.classList.contains("dark")
-    ? '<i data-lucide="sun"></i>'
-    : '<i data-lucide="moon"></i>';
-  lucide.createIcons();
-};

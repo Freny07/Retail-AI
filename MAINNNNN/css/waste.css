@@ -71,22 +71,6 @@ header p {
   opacity: .95;
 }
 
-/* THEME BUTTON */
-.theme-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(14px);
-  border: 2px solid rgba(255,255,255,0.3); /* optional for visibility */
-  color: rgb(1, 1, 4);
-  cursor: pointer;
-  position: fixed;     /* stays in place while scrolling */
-  top: 20px;           /* distance from top */
-  right: 20px;         /* distance from right */
-  z-index: 9999;       /* on top of other elements */
-}
-
 
 /* ================= ACTION CARDS ================= */
 .cards {
@@ -240,4 +224,33 @@ body.dark .ai-card {
   .layout { flex-direction: column; }
   .cards { grid-template-columns: 1fr; }
   .chart-box { max-width: 100%; }
+}
+
+.theme-btn {
+  position: fixed;
+  top: 16px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.906);
+  backdrop-filter: blur(14px);
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  border: none;
+  color: rgb(24, 24, 24);
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  transition:.25s;
+}
+
+.theme-btn:hover {
+  transform: scale(1.1);
+}
+
+
+body.dark .theme-btn {
+  background: rgba(215, 206, 206, 0.916);
 }

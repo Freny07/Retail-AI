@@ -159,17 +159,4 @@ document.getElementById("simulate-btn").onclick = () => {
   `;
 };
 
-/* ================= THEME ================= */
 
-const t = document.getElementById("themeToggle");
-t.onclick = () => {
-  document.body.dataset.theme =
-    document.body.dataset.theme === "dark" ? "light" : "dark";
-
-  t.innerHTML =
-    document.body.dataset.theme === "dark"
-      ? '<i data-lucide="sun"></i>'
-      : '<i data-lucide="moon"></i>';
-
-  lucide.createIcons();
-};

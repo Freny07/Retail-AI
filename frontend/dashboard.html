@@ -6,6 +6,8 @@
 
   <link rel="stylesheet" href="css/sidebar.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/footer.css">
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <script defer src="js/sidebar.js"></script>
@@ -21,6 +23,12 @@
     <button id="darkToggle" class="theme-btn">
       <i data-lucide="moon"></i>
     </button>
+    <div class="auth-bar">
+  <a href="login.html" class="login-btn">
+    <i class="fa-solid fa-right-to-bracket"></i> Login
+  </a>
+</div>
+
 
     <!-- HERO -->
     <section class="hero">
@@ -127,7 +135,8 @@
 
   </main>
 </div>
-
+<!-- FOOTER MUST BE OUTSIDE .layout -->
+<div id="footerContainer" style="width: 90%;"></div>
 <script>
 fetch("components/sidebar.html")
 .then(r=>r.text())
@@ -136,6 +145,11 @@ fetch("components/sidebar.html")
   loadSidebar();
   lucide.createIcons();
 });
+fetch("components/footer.html")
+  .then(r=>r.text())
+  .then(h=>{
+    document.getElementById("footerContainer").innerHTML=h;
+  });
 </script>
 
 <script src="js/dashboard.js"></script>

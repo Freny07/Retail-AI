@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="css/waste.css">
 <link rel="stylesheet" href="css/sidebar.css">
 <link rel="stylesheet" href="css/wdonate.css">
+<link rel="stylesheet" href="css/footerhalf.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -130,6 +132,9 @@
 
   </main>
 </div>
+<!-- FOOTER MUST BE OUTSIDE .layout -->
+<div id="footerContainer"></div>
+
 
 <script>
 fetch("components/sidebar.html")
@@ -138,6 +143,12 @@ fetch("components/sidebar.html")
     document.getElementById("sidebarContainer").innerHTML = html;
     loadSidebar();
     lucide.createIcons();
+  });
+
+  fetch("components/footerhalf.html")
+  .then(r=>r.text())
+  .then(h=>{
+    document.getElementById("footerContainer").innerHTML=h;
   });
 </script>
 

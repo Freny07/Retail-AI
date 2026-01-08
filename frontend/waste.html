@@ -7,6 +7,10 @@
   <!-- Styles -->
   <link rel="stylesheet" href="css/waste.css">
   <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/footer.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
   <!-- Icons & Charts -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -90,7 +94,8 @@
 
   </main>
 </div>
-
+<!-- FOOTER MUST BE OUTSIDE .layout -->
+<div id="footerContainer" style="width: 88%;"></div>
 <!-- Sidebar Load -->
 <script>
   fetch("components/sidebar.html")
@@ -100,6 +105,13 @@
       loadSidebar();
       lucide.createIcons();
     });
+
+
+  fetch("components/footer.html")
+  .then(r=>r.text())
+  .then(h=>{
+    document.getElementById("footerContainer").innerHTML=h;
+  });
 </script>
 
 <!-- Futuristic Waste Page JS -->

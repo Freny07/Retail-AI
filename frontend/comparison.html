@@ -6,6 +6,8 @@
 
   <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/comparison.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <script defer src="js/sidebar.js"></script>
@@ -60,7 +62,8 @@
     </div>
   </main>
 </div>
-
+<!-- FOOTER MUST BE OUTSIDE .layout -->
+<div id="footerContainer"></div>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   fetch("components/sidebar.html")
@@ -71,6 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
     });
 });
+fetch("components/footer.html")
+  .then(r=>r.text())
+  .then(h=>{
+    document.getElementById("footerContainer").innerHTML=h;
+  });
 </script>
 
 </body>

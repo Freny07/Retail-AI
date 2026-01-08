@@ -1,28 +1,17 @@
-/* ===== FIX: ARROW & FIRST ICON OVERLAP ===== */
-
-/* Header height thodi badi */
-.sb-header{
-  height: 72px;
+.sidebar{
+  min-height: 100vh;
+  height: 100%;
+  background: linear-gradient(180deg,#020617,#0f172a);
+  display:flex;
+  flex-direction:column;
 }
-
-/* Arrow stays centered in header */
-#sidebar.collapsed .sb-header{
-  justify-content: center;
+.sidebar{
+  box-shadow:none;
+  border-bottom:none;
 }
-
-/* Nav icons thode neeche shift */
-#sidebar.collapsed #navLinks{
-  margin-top: 16px;
+.sidebar{
+  background:linear-gradient(180deg,#020617,#0f172a);
 }
-
-/* Extra safety: first nav item spacing */
-#sidebar.collapsed #navLinks a:first-child{
-  margin-top: 10px;
-}
-#sidebar.collapsed{
-  padding-top: 6px;
-}
-
 #sidebar {
   width: 256px;
   min-height: 146vh;
@@ -69,6 +58,7 @@
 
 
 #navLinks a {
+  top: 40px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -146,9 +136,9 @@
 }
 
 #sidebar {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
+  /* left: 0; */
   height: 100vh;
   z-index: 9999;
 }
@@ -219,7 +209,9 @@
 
 
 #logo-full {
-  height:110px;
+  margin-top: 50px;
+  top: 10px;
+  height:140px;
   padding-left: 30px;
 }
 
@@ -262,6 +254,8 @@
   height:18px;
 }
 
+
+
 .dark-toggle-btn{
   position:fixed;
   top:16px;
@@ -269,13 +263,11 @@
   width:44px;
   height:44px;
   border-radius:14px;
-  background: rgba(255, 255, 255, 0.906);
-  backdrop-filter: blur(14px);
+  background:#ffffff;
   border:none;
-  color: rgb(24, 24, 24);
   box-shadow:0 8px 20px rgba(0,0,0,.15);
   cursor:pointer;
-  z-index:999;
+  z-index:99999;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -307,4 +299,28 @@ body.dark .insight{
   background:#0f172a;
   color:#e5e7eb;
   box-shadow:none;
+}
+/* Force sidebar to always fill screen height */
+
+.app-footer{
+  margin-top:-1px;
+  border-top:none;
+}
+
+
+html, body{
+  height:100%;
+  overflow-x:hidden;
+}
+
+
+.layout{
+  flex:1;
+}
+
+
+
+#sidebar {
+  height: 100%;
+  min-height: 100%;
 }

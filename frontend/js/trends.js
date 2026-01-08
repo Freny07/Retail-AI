@@ -53,3 +53,13 @@ document.querySelectorAll(".forecast-toggle button").forEach(b=>{
     b.dataset.range==="weekly" ? draw(weekly) : draw(monthly);
   };
 });
+
+/* THEME */
+const t=document.getElementById("themeToggle");
+t.onclick=()=>{
+  document.body.classList.toggle("dark");
+  t.innerHTML=document.body.classList.contains("dark")
+    ?'<i data-lucide="sun"></i>'
+    :'<i data-lucide="moon"></i>';
+  lucide.createIcons();
+};

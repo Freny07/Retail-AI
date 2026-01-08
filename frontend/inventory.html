@@ -4,29 +4,32 @@
   <title>Inventory</title>
   <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/inventory.css">
+  <link rel="stylesheet" href="css/footer.css">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script defer src="js/sidebar.js"></script>
   <script defer src="js/inventory.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
-  <button id="darkToggle" class="dark-toggle-btn">
+
+<button id="darkToggle" class="dark-toggle-btn">
   <i data-lucide="sun"></i>
 </button>
-
 
 <div class="layout">
   <div id="sidebarContainer"></div>
 
   <main class="page">
-    <div class="top-meta">
-  <p class="live">
-    <span class="dot"></span>
-    <span>Live</span>
-    <span class="sep">·</span>
-    <span>Inventory</span>
-  </p>
-</div>
 
+    <div class="top-meta">
+      <p class="live">
+        <span class="dot"></span>
+        <span>Live</span>
+        <span class="sep">·</span>
+        <span>Inventory</span>
+      </p>
+    </div>
 
     <section class="hero">
       <h1><i data-lucide="boxes"></i> Inventory & Expiry Intelligence</h1>
@@ -34,39 +37,38 @@
     </section>
 
     <section class="kpis">
-  <div class="kpi">
-    <div class="kpi-top">
-      <i data-lucide="boxes" class="kpi-icon indigo"></i>
-      <span>Total SKUs</span>
-    </div>
-    <div class="kpi-value">48</div>
-  </div>
+      <div class="kpi">
+        <div class="kpi-top">
+          <i data-lucide="boxes" class="kpi-icon indigo"></i>
+          <span>Total SKUs</span>
+        </div>
+        <div class="kpi-value">48</div>
+      </div>
 
-  <div class="kpi">
-    <div class="kpi-top">
-      <i data-lucide="alert-triangle" class="kpi-icon red"></i>
-      <span>High Risk Items</span>
-    </div>
-    <div class="kpi-value">9</div>
-  </div>
+      <div class="kpi">
+        <div class="kpi-top">
+          <i data-lucide="alert-triangle" class="kpi-icon red"></i>
+          <span>High Risk Items</span>
+        </div>
+        <div class="kpi-value">9</div>
+      </div>
 
-  <div class="kpi">
-    <div class="kpi-top">
-      <i data-lucide="check-circle" class="kpi-icon green"></i>
-      <span>Safe Inventory</span>
-    </div>
-    <div class="kpi-value">31</div>
-  </div>
+      <div class="kpi">
+        <div class="kpi-top">
+          <i data-lucide="check-circle" class="kpi-icon green"></i>
+          <span>Safe Inventory</span>
+        </div>
+        <div class="kpi-value">31</div>
+      </div>
 
-  <div class="kpi">
-    <div class="kpi-top">
-      <i data-lucide="clock" class="kpi-icon blue"></i>
-      <span>Avg Shelf Life</span>
-    </div>
-    <div class="kpi-value">14 days</div>
-  </div>
-</section>
-
+      <div class="kpi">
+        <div class="kpi-top">
+          <i data-lucide="clock" class="kpi-icon blue"></i>
+          <span>Avg Shelf Life</span>
+        </div>
+        <div class="kpi-value">14 days</div>
+      </div>
+    </section>
 
     <section class="filters">
       <button data-f="ALL" class="f active">All</button>
@@ -78,10 +80,16 @@
     <select id="categoryFilter" class="category-filter">
       <option value="all">All Categories</option>
     </select>
+
     <section class="table-wrap">
       <table>
         <thead>
-          <tr><th>Product</th><th>Category</th><th>Days to Expiry</th><th>Risk Level</th></tr>
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Days to Expiry</th>
+            <th>Risk Level</th>
+          </tr>
         </thead>
         <tbody id="invBody"></tbody>
       </table>
@@ -94,13 +102,24 @@
   </main>
 </div>
 
+<!-- FOOTER MUST BE OUTSIDE .layout -->
+<div id="footerContainer"></div>
+
 <script>
 fetch("components/sidebar.html")
-.then(r=>r.text())
-.then(h=>{
- document.getElementById("sidebarContainer").innerHTML=h;
- loadSidebar();lucide.createIcons();
-});
+  .then(r=>r.text())
+  .then(h=>{
+    document.getElementById("sidebarContainer").innerHTML=h;
+    loadSidebar();
+    lucide.createIcons();
+  });
+
+fetch("components/footer.html")
+  .then(r=>r.text())
+  .then(h=>{
+    document.getElementById("footerContainer").innerHTML=h;
+  });
+  
 </script>
 
 </body>

@@ -254,3 +254,44 @@ body.dark .ai-card {
 body.dark .theme-btn {
   background: rgba(215, 206, 206, 0.916);
 }
+
+
+
+/* ================= FORCE TABLE TEXT COLOR ================= */
+.cyber-table,
+.cyber-table th,
+.cyber-table td,
+.cyber-table tr {
+  color: #1e3a8a !important;   /* professional dark blue */
+}
+
+.cyber-table th {
+  font-weight: 700;
+}
+
+.cyber-table td {
+  font-weight: 500;
+}
+
+/* Optional: keep alternating row background subtle */
+.cyber-table tr:nth-child(even) {
+  background-color: #f5f7ff;   /* very light blue tint */
+}
+
+.cyber-table tr:hover {
+  background-color: #e0e7ff;   /* slightly darker blue hover */
+}
+
+/* ================= FORCE INSIGHT CARD TEXT COLORS ================= */
+.insight-card,
+.insight-card h4,
+.insight-card p {
+  color: #1e3a8a !important;  /* professional dark blue in light mode */
+}
+
+/* Dark mode override for insight cards to stay readable */
+body.dark .insight-card,
+body.dark .insight-card h4,
+body.dark .insight-card p {
+  color: #0c1560 !important;  /* light greenish text in dark mode */
+}

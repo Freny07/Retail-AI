@@ -20,16 +20,13 @@
 </head>
 
 <body>
-
+  <div class="entire">
+    <div class="holder">
   <!-- Sidebar -->
   <div id="sidebarContainer"></div>
 
   <!-- Main Page -->
   <main class="page">
-
-    <button id="darkToggle" class="theme-btn">
-      <i data-lucide="moon"></i>
-    </button>
 
     <!-- HERO -->
     <section class="hero">
@@ -41,6 +38,9 @@
           <button data-range="weekly">Weekly</button>
         </div>
 
+        <button id="themeToggle" class="theme-btn">
+          <i data-lucide="moon"></i>
+        </button>
       </div>
 
       <div class="hero-content">
@@ -97,9 +97,68 @@
         </div>
       </div>
     </section>
-
+       
   </main>
+   </div>
+    <!-- FOOTER -->
+<footer class="app-footer">
+  <div class="footer-inner">
 
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <div class="brand-row">
+        <img src="assets/fullicon.png" alt="Gumasto Logo" />
+        <h2>Gumasto</h2>
+      </div>
+
+      <p>
+        Your AI-powered retail intelligence platform to reduce waste,
+        optimize inventory and increase profit margins.
+      </p>
+
+      <div class="footer-socials">
+        <a href="#"><i data-lucide="facebook"></i></a>
+        <a href="#"><i data-lucide="twitter"></i></a>
+        <a href="#"><i data-lucide="instagram"></i></a>
+        <a href="#"><i data-lucide="linkedin"></i></a>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+     <a href="inventory.html">Inventory</a>
+      <a href="discounts.html">Discount Engine</a>
+      <a href="comparison.html">Comparison</a>
+      <a href="placement.html">Placement</a>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="footer-col">
+      <h4>Features</h4>
+      <a href="#">AI Forecasting</a>
+      <a href="#">Dynamic Pricing</a>
+      <a href="#">Waste Reduction</a>
+      <a href="#">Smart Analytics</a>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <p><i data-lucide="map-pin"></i> Lucknow, India</p>
+      <p><i data-lucide="mail"></i> support@gumasto.ai</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span>Built for Microsoft Imagine Cup</span>
+    <span>©️ 2026 Gumasto</span>
+  </div>
+</footer>
+
+  </div>
+  
   <!-- Sidebar loader -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -113,5 +172,12 @@
         });
     });
   </script>
+  
+<script>
+  lucide.createIcons();
+</script>
+
+  
+
 </body>
 </html>

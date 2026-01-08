@@ -371,3 +371,35 @@ body {
 body.dark .theme-btn {
   background: rgba(215, 206, 206, 0.916);
 }
+
+
+
+.auth-bar{
+  position:fixed;
+  top:18px;
+  right:80px;   /* space for dark toggle */
+  z-index:9999;
+}
+
+
+.login-btn{
+  background:linear-gradient(135deg,#38bdf8,#2563eb);
+  color:white;
+  padding:10px 20px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  box-shadow:0 6px 18px rgba(37,99,235,.45);
+  transition:.25s;
+}
+
+.login-btn:hover{
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:0 10px 26px rgba(37,99,235,.55);
+}
+
+

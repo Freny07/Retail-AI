@@ -6,16 +6,19 @@
 
   <link rel="stylesheet" href="css/discounts.css">
   <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/footer.css">
 
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script defer src="js/discounts.js"></script>
   <script defer src="js/sidebar.js"></script>
+  <script defer src="js/discounts.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
-  <button id="darkToggle" class="dark-toggle-btn">
+
+<button id="darkToggle" class="dark-toggle-btn">
   <i data-lucide="sun"></i>
 </button>
-
 
 <div class="layout">
   <div id="sidebarContainer"></div>
@@ -23,38 +26,48 @@
   <main class="page">
 
     <div class="top-meta">
-      <p><span class="live-dot"></span> Live · Dynamic discount recommendations</p>
+      <p><span class="live-dot"></span> Live · Dynamic Discount Recommendations</p>
     </div>
 
     <section class="hero">
-
       <div class="hero-content">
-
         <h1>Dynamic Discount Engine</h1>
-
         <p>
           Automatically determine optimal discount strategies using expiry risk,
           sales velocity, and AI sensitivity tuning — reducing losses while
           preserving brand trust.
         </p>
       </div>
-
       <div class="blob b1"></div>
       <div class="blob b2"></div>
     </section>
 
     <section class="kpis">
-      <div class="kpi"><i data-lucide="tag" class="orange"></i><span>Products Discounted</span><b id="kpiDiscounted">0</b></div>
-      <div class="kpi"><i data-lucide="alert-triangle" class="red"></i><span>High Risk Items</span><b>4</b></div>
-      <div class="kpi"><i data-lucide="percent" class="blue"></i><span>Avg Discount</span><b id="kpiAvg">18%</b></div>
-      <div class="kpi"><i data-lucide="check-circle" class="green"></i><span>Waste Reduction Impact</span><b>↑ 29%</b></div>
+      <div class="kpi">
+        <i data-lucide="tag" class="orange"></i>
+        <span>Products Discounted</span>
+        <b id="kpiDiscounted">0</b>
+      </div>
+      <div class="kpi">
+        <i data-lucide="alert-triangle" class="red"></i>
+        <span>High Risk Items</span>
+        <b>4</b>
+      </div>
+      <div class="kpi">
+        <i data-lucide="percent" class="blue"></i>
+        <span>Avg Discount</span>
+        <b id="kpiAvg">18%</b>
+      </div>
+      <div class="kpi">
+        <i data-lucide="check-circle" class="green"></i>
+        <span>Waste Reduction Impact</span>
+        <b>↑ 29%</b>
+      </div>
     </section>
 
     <section class="control">
       <h2><i data-lucide="brain"></i> AI Discount Sensitivity</h2>
-      <p>
-        Adjust how aggressively AI applies discounts. Higher sensitivity prioritizes sell-through.
-      </p>
+      <p>Adjust how aggressively AI applies discounts.</p>
       <input type="range" id="sens" min="0" max="15" value="0">
       <p>Current Sensitivity: <b id="sensVal">0</b></p>
     </section>
@@ -63,9 +76,17 @@
       <table>
         <thead>
           <tr>
-            <th>Product</th><th>Brand</th><th>Category</th><th>Stock</th>
-            <th>Units Sold</th><th>Days</th><th>Initial</th><th>Discount</th>
-            <th>Final</th><th>Profit/Loss</th><th>AI</th>
+            <th>Product</th>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>Stock</th>
+            <th>Units Sold</th>
+            <th>Days</th>
+            <th>Initial</th>
+            <th>Discount</th>
+            <th>Final</th>
+            <th>Profit/Loss</th>
+            <th>AI</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -80,16 +101,24 @@
   </main>
 </div>
 
+<!-- Footer OUTSIDE layout -->
+<div id="footerContainer"></div>
 
 <script>
 fetch("components/sidebar.html")
-.then(r=>r.text())
-.then(h=>{
- document.getElementById("sidebarContainer").innerHTML=h;
- loadSidebar();lucide.createIcons();
-});
-</script>
+  .then(r => r.text())
+  .then(h => {
+    document.getElementById("sidebarContainer").innerHTML = h;
+    loadSidebar();
+    lucide.createIcons();
+  });
 
+fetch("components/footer.html")
+  .then(r => r.text())
+  .then(h => {
+    document.getElementById("footerContainer").innerHTML = h;
+  });
+</script>
 
 </body>
 </html>

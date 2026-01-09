@@ -1,23 +1,46 @@
 import axios from "axios";
 
-const PYTHON_AI_URL = process.env.PYTHON_AI_URL || "http://localhost:8000/ai";
+const PYTHON_AI_URL = process.env.PYTHON_AI_URL || "http://127.0.0.1:8000";
 
 export const getInsight = async (insightRequest) => {
   try {
-    const response = await axios.post(`${PYTHON_AI_URL}/insight`, insightRequest, {
-      timeout: 5000 // 5 seconds timeout
-    });
+    console.log("📤 Sending request to Python AI:", insightRequest);
 
-    const data = response.data.insight;
+    const response = await axios.post(
+      `${PYTHON_AI_URL}/ai/insight`,
+      insightRequest,
+      {
+        timeout: 8000,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
 
-    // Ensure all fields exist
+    console.log("📥 Python AI response:", response.data);
+
+    const data = response.data?.insight;
+
+    if (!data) {
+      throw new Error("Invalid AI response format");
+    }
+
     return {
-      message: data.message || "No message",
+      message: data.message ?? "No message",
       confidence: data.confidence ?? 0,
-      explanation: data.explanation || ""
+      explanation: data.explanation ?? ""
     };
+
   } catch (error) {
-    console.error("Python AI service error:", error.message);
+    console.error("❌ Python AI service error:");
+
+    if (error.response) {
+      console.error("Status:", error.response.status);
+      console.error("Data:", error.response.data);
+    } else {
+      console.error("Message:", error.message);
+    }
+
     throw new Error("Failed to get insight from AI service");
   }
 };

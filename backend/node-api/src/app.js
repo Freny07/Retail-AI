@@ -5,14 +5,19 @@ import storeRoutes from "./routes/store.routes.js";
 import productRoutes from "./routes/product.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import aiRoutes from "./routes/ai.routes.js";
+import insightRoutes from "./routes/insight.routes.js";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000", // frontend
+  credentials: true
+}));
 app.use(express.json());
 
 app.use("/auth", authRoutes);
 app.use("/store", storeRoutes);
+app.use("/api/insights", insightRoutes);
 
 app.use(morgan("dev"));
 

@@ -1,13 +1,14 @@
 from fastapi import APIRouter
 from app.schemas.request_models import InsightRequest
-from app.services.insight_engine import generate_insight
 
-router = APIRouter()
+router = APIRouter(prefix="/ai")
 
 @router.post("/insight")
 async def insight_endpoint(request: InsightRequest):
-    """
-    Skeleton endpoint for generating insights
-    """
-    result = generate_insight(request)
-    return {"insight": result}
+    return {
+        "insight": {
+            "message": "Test insight",
+            "confidence": 0.99,
+            "explanation": "Pipeline working"
+        }
+    }

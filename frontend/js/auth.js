@@ -1,444 +1,251 @@
-* {
-  box-sizing: border-box;
-  font-family: Inter, system-ui, sans-serif;
+/* ================= THEME TOGGLE ================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("darkToggle");
+  if (!toggle) return;
+
+  const isDark = localStorage.getItem("darkMode") === "on";
+  document.body.classList.toggle("dark", isDark);
+
+  toggle.innerHTML = isDark
+    ? '<i data-lucide="sun"></i>'
+    : '<i data-lucide="moon"></i>';
+
+  lucide.createIcons();
+
+  toggle.onclick = () => {
+    document.body.classList.toggle("dark");
+    const nowDark = document.body.classList.contains("dark");
+    localStorage.setItem("darkMode", nowDark ? "on" : "off");
+
+    toggle.innerHTML = nowDark
+      ? '<i data-lucide="sun"></i>'
+      : '<i data-lucide="moon"></i>';
+
+    lucide.createIcons();
+  };
+});
+
+/* ================= COMMON ================= */
+
+function togglePassword(id) {
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #738fea, #f8fafc);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* ================= LOGIN ================= */
 
-/* ================= CONTAINER ================= */
-.auth-container {
-  width: 1000px;
-  height: 600px;
-  background: #ffffff;
-  border-radius: 22px;
-  display: flex;
-  overflow: hidden;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.12);
-}
+function loginUser() {
+  const identifier = document.getElementById("loginIdentifier").value;
+  const password = document.getElementById("loginPassword").value;
 
-/* ================= LEFT FORM ================= */
-.auth-form {
-  width: 40%;
-  padding: 48px 40px;
-}
-
-/* SIGNUP SCROLL */
-.signup-scroll {
-  overflow-y: auto;
-  padding-right: 16px;
-}
-
-.signup-scroll::-webkit-scrollbar {
-  width: 6px;
-}
-
-.signup-scroll::-webkit-scrollbar-thumb {
-  background: #c7d2fe;
-  border-radius: 10px;
-}
-
-.auth-form h2 {
-  margin: 0;
-  font-size: 28px;
-  color: #0f172a;
-}
-
-.subtitle {
-  margin: 6px 0 24px;
-  color: #64748b;
-  font-size: 14px;
-}
-
-/* ================= SOCIAL AUTH ================= */
-.social-auth {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.social-btn {
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #ffffff;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.social-btn.google { color: #ea4335; }
-.social-btn.facebook { color: #1877f2; }
-.social-btn.linkedin { color: #0a66c2; }
-
-/* ================= DIVIDER ================= */
-.divider {
-  text-align: center;
-  margin: 18px 0;
-  font-size: 13px;
-  color: #94a3b8;
-  position: relative;
-}
-
-.divider span {
-  background: #ffffff;
-  padding: 0 10px;
-}
-
-.divider::before {
-  content: "";
-  height: 1px;
-  background: #e5e7eb;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  z-index: -1;
-}
-
-/* ================= INPUTS ================= */
-.input-group {
-  margin-bottom: 16px;
-}
-
-.input-group label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: #0f172a;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #c7d2fe;
-  font-size: 14px;
-  outline: none;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
-}
-
-.input-group input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-/* ================= ERROR STATES ================= */
-.input-error {
-  border-color: #f22d2d !important;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
-}
-
-.error-text {
-  font-size: 12px;
-  color: #ef4444;
-  margin-top: 6px;
-  display: none;
-}
-
-.error-text.show {
-  display: block;
-}
-
-/* ================= PASSWORD TOGGLE ================= */
-.password-wrapper {
-  position: relative;
-}
-
-.password-wrapper span {
-  position: absolute;
-  right: 14px;
-  top: 36px;
-  font-size: 13px;
-  color: #2563eb;
-  cursor: pointer;
-}
-
-/* ================= HELPER ROW ================= */
-.helper-row {
-  text-align: right;
-  margin-bottom: 10px;
-}
-
-.helper-row a {
-  font-size: 13px;
-  color: #2563eb;
-  text-decoration: none;
-}
-
-/* ================= BUTTONS ================= */
-button.primary {
-  width: 100%;
-  padding: 13px;
-  border-radius: 12px;
-  border: none;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  color: #ffffff;
-  font-size: 15px;
-  cursor: pointer;
-
-  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.28);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    filter 0.25s ease;
-}
-
-/* 🔥 FLOAT ON HOVER */
-button.primary:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 36px rgba(124, 58, 237, 0.35);
-  filter: brightness(1.05);
-}
-
-/* DISABLED STATE */
-button.primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
-}
-
-/* SECONDARY BUTTON */
-button.secondary {
-  width: 100%;
-  margin-top: 12px;
-  padding: 13px;
-  border-radius: 12px;
-  border: 1px solid #2563eb;
-  background: transparent;
-  color: #2563eb;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
-}
-
-button.secondary:hover {
-  background: #2563eb;
-  color: #ffffff;
-  transform: translateY(-2px);
-}
-
-/* ================= LINKS ================= */
-.link {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.link a {
-  color: #2563eb;
-  text-decoration: none;
-}
-
-/* ================= RIGHT PANEL ================= */
-.brand-panel {
-  width: 60%;
-  padding: 60px;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  background-image:
-    linear-gradient(
-      135deg,
-      rgba(37, 99, 235, 0.85),
-      rgba(124, 58, 237, 0.85)
-    ),
-    url("../assets/loginbg.png");
-
-  background-size: cover;
-  background-position: center;
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 1024px) {
-  .auth-container {
-    width: 92%;
-    height: auto;
-    flex-direction: column;
+  if (!identifier || !password) {
+    alert("Please enter login details");
+    return;
   }
 
-  .auth-form,
-  .brand-panel {
-    width: 100%;
+  localStorage.setItem("gumasto_logged_in", "true");
+  window.location.href = "../dashboard.html";
+}
+
+function continueAsGuest() {
+  localStorage.removeItem("gumasto_logged_in");
+  window.location.href = "../dashboard.html";
+}
+
+/* ================= SIGNUP ================= */
+
+function signupUser() {
+  const inputs = document.querySelectorAll("#signupForm input");
+  let hasError = false;
+
+  inputs.forEach(input => {
+    if (!input.value.trim()) {
+      input.classList.add("input-error");
+      hasError = true;
+    } else {
+      input.classList.remove("input-error");
+    }
+  });
+
+  if (hasError) return;
+
+  localStorage.setItem("gumasto_logged_in", "true");
+  window.location.href = "../dashboard.html";
+}
+
+/* ================= RESET PASSWORD ================= */
+
+function resetPassword() {
+  localStorage.setItem("gumasto_logged_in", "true");
+  window.location.href = "../dashboard.html";
+}
+
+/* ================================================= */
+/* ================= OTP FLOW ====================== */
+/* ================================================= */
+
+const OTP_DURATION = 120; // 2 minutes
+const MAX_ATTEMPTS = 5;
+
+let otpSent = false;
+let otpTimerInterval = null;
+
+/* utils */
+function todayKey() {
+  return new Date().toISOString().split("T")[0];
+}
+
+function attemptsKey() {
+  return "otp_attempts_" + todayKey();
+}
+
+/* MAIN BUTTON */
+function handleOtpAction() {
+  const btn = document.getElementById("otpActionBtn");
+  const input = document.getElementById("forgotIdentifier");
+
+  let attempts = Number(localStorage.getItem(attemptsKey()) || 0);
+
+  if (attempts >= MAX_ATTEMPTS) {
+    alert("Too many attempts. Try again tomorrow.");
+    btn.disabled = true;
+    return;
   }
 
-  .brand-panel {
-    min-height: 280px;
-    text-align: center;
+  /* SEND / RESEND */
+  if (!otpSent) {
+    if (!input.value.trim()) {
+      input.classList.add("input-error");
+      return;
+    }
+    input.classList.remove("input-error");
+
+    localStorage.setItem("gumasto_otp", "123456"); // demo
+    otpSent = true;
+
+    btn.textContent = "Verify OTP";
+    btn.disabled = true;
+
+    document.getElementById("otpSection").style.display = "block";
+    document.getElementById("otpError").classList.remove("show");
+
+    clearOtpInputs();
+    setOtpInputsDisabled(false);
+    startOtpTimer();
+
+    alert("OTP sent (demo): 123456");
+    return;
   }
-}
-.brand-panel h1 {
-  font-size: 42px;
-  margin: 0;
-  font-weight: 700;
-  line-height: 1.2;
+
+  /* VERIFY */
+  verifyOtp();
 }
 
-.tagline {
-  margin-top: 12px;   /* restored tight spacing */
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.5;
+/* TIMER */
+function startOtpTimer() {
+  let remaining = OTP_DURATION;
+  const timerEl = document.getElementById("otpTimer");
+
+  clearInterval(otpTimerInterval);
+
+  timerEl.style.display = "block";
+  timerEl.style.color = "";
+  timerEl.textContent = formatTime(remaining);
+
+  otpTimerInterval = setInterval(() => {
+    remaining--;
+    timerEl.textContent = formatTime(remaining);
+
+    if (remaining <= 0) {
+      clearInterval(otpTimerInterval);
+      timerEl.textContent = "OTP expired";
+      timerEl.style.color = "#dc2626";
+
+      otpSent = false;
+      setOtpInputsDisabled(true);
+
+      const btn = document.getElementById("otpActionBtn");
+      btn.textContent = "Resend OTP";
+      btn.disabled = false;
+    }
+  }, 1000);
 }
 
-.quote {
-  margin-top: 8px;    /* restored spacing */
-  font-size: 15px;
-  font-style: italic;
-  font-weight: 400;
-  opacity: 0.95;
+function formatTime(sec) {
+  return `OTP expires in ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
 }
 
-/* Auth pages theme toggle button */
-.theme-btn {
-  position: fixed;
-  top: 16px;
-  right: 18px;
-  width: 44px;
-  height: 44px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(14px);
-  border: none;
-  cursor: pointer;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-  transition: transform 0.3s ease;
+/* VERIFY OTP */
+function verifyOtp() {
+  const enteredOtp = [...document.querySelectorAll(".otp-inputs input")]
+    .map(i => i.value).join("");
+
+  const savedOtp = localStorage.getItem("gumasto_otp");
+
+  let attempts = Number(localStorage.getItem(attemptsKey()) || 0);
+
+  if (enteredOtp !== savedOtp) {
+    attempts++;
+    localStorage.setItem(attemptsKey(), attempts);
+
+    document.getElementById("otpError").classList.add("show");
+
+    clearInterval(otpTimerInterval);
+    clearOtpInputs();
+    setOtpInputsDisabled(true);
+
+    otpSent = false;
+
+    const btn = document.getElementById("otpActionBtn");
+    btn.textContent = "Resend OTP";
+    btn.disabled = false;
+
+    if (attempts >= MAX_ATTEMPTS) {
+      alert("Too many failed attempts. Try again tomorrow.");
+      btn.disabled = true;
+    }
+    return;
+  }
+
+  clearInterval(otpTimerInterval);
+  window.location.href = "../auth/reset-password.html";
 }
 
-.theme-btn i {
-  color: #1e293b; /* dark icon for light mode */
+/* INPUT UX */
+document.addEventListener("input", e => {
+  if (!e.target.parentElement?.classList.contains("otp-inputs")) return;
+
+  if (e.target.value && e.target.nextElementSibling) {
+    e.target.nextElementSibling.focus();
+  }
+
+  const allFilled = [...document.querySelectorAll(".otp-inputs input")]
+    .every(i => i.value.length === 1);
+
+  document.getElementById("otpActionBtn").disabled = !allFilled;
+});
+
+/* HELPERS */
+function clearOtpInputs() {
+  document.querySelectorAll(".otp-inputs input").forEach(i => (i.value = ""));
 }
 
-
-.theme-btn:hover {
-  transform: scale(1.1);
+function setOtpInputsDisabled(disabled) {
+  document.querySelectorAll(".otp-inputs input")
+    .forEach(i => (i.disabled = disabled));
 }
 
-body.dark .theme-btn i {
-  color: #020617; /* sun visible on light button */
-}
+/* ENABLE SEND OTP WHEN EMAIL ENTERED */
+document.getElementById("forgotIdentifier")?.addEventListener("input", e => {
+  if (!otpSent) {
+    document.getElementById("otpActionBtn").disabled = !e.target.value.trim();
+  }
+});
 
-body.dark .theme-btn {
-  background: rgba(215, 206, 206, 0.9);
-}
-
-/* ================= AUTH DARK MODE ================= */
-
-
-/* Headings */
-body.dark h1,
-body.dark h2,
-body.dark h3 {
-  color: #f8fafc;
-}
-
-/* Links */
-body.dark a {
-  color: #77b3f7;
-}
-
-/* Buttons (login / submit) */
-body.dark button.primary,
-body.dark .primary-btn {
-  background: linear-gradient(135deg,#38bdf8,#2563eb);
-  color: white;
-
-}
-
-
-body.dark .secondary-text,
-body.dark p {
-  color: #cbd5f5;
-}
-
-
-/* Page background */
-body.dark {
-  background: linear-gradient(15deg, #140953, #240242e6);
-}
-
-/* MAIN AUTH CARD stays dark-ish */
-body.dark .auth-container {
-  background: rgba(15, 23, 42, 0.92);
-}
-
-/* LEFT FORM PANEL  */
-body.dark .auth-form {
-  background: #b7c8e9;
-}
-
-/* Headings inside left panel */
-body.dark .auth-form h2 {
-  color: #0f172a;
-}
-
-/* Subtitles & labels */
-body.dark .auth-form .subtitle,
-body.dark .auth-form label,
-body.dark .auth-form p {
-  color: #283443;
-}
-
-/* INPUTS  */
-body.dark .auth-form input {
-  background: #eef0f5;
-  color: #0f172a;
-  border: 1px solid #979eb7;
-}
-
-body.dark .auth-form input::placeholder {
-  color: #64748b;
-}
-
-/* Input focus */
-body.dark .auth-form input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-/* Links inside form */
-body.dark .auth-form a {
-  color: #2563eb;
-}
-
-/* Error text */
-body.dark .auth-form .error-text {
-  color: #e91b1b;
-}
-
-/* ===== OTP INLINE BOX FIX ===== */
-
-.otp-inputs {
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-}
-
-.otp-inputs input {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 0;
-}
-
-/* Disable typing when expired */
-.otp-inputs.disabled input {
-  pointer-events: none;
-  opacity: 0.6;
-}
+/* INIT */
+document.addEventListener("DOMContentLoaded", () => {
+  otpSent = false;
+  clearOtpInputs();
+  setOtpInputsDisabled(true);
+});

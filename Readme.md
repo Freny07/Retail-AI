@@ -117,6 +117,7 @@ Brands evaluated on:
 | Category | Product category |
 | Price | Selling price |
 | Stock | Quantity |
+| Units_sold | Sold Units |
 | Expiry_date | YYYY-MM-DD |
 
 Max file size: **500MB**

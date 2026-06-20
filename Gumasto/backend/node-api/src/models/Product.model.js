@@ -19,8 +19,21 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0
     },
+    sales: {
+      type: Number,
+      default: 0
+    },
     category: {
       type: String
+    },
+    brand: {
+      type: String
+    },
+    cost: {
+      type: Number
+    },
+    expiryDate: {
+      type: Date
     }
   },
   { timestamps: true }

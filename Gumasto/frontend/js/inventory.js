@@ -1,4 +1,4 @@
-const products = [
+let products = [
   // ===== DAIRY (1–15) =====
   { name: "Amul Milk", category: "Dairy", daysLeft: 2 },
   { name: "Mother Dairy Milk", category: "Dairy", daysLeft: 3 },
@@ -121,6 +121,34 @@ function getRisk(d){
 }
 let filter = "ALL";
 
+async function loadInventory() {
+  try {
+    const headers = {};
+    const token = localStorage.getItem("gumasto_token");
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const res = await fetch("http://localhost:5000/api/products", { headers });
+    if (!res.ok) throw new Error("Failed to fetch products");
+    const data = await res.json();
+
+    if (data && data.length > 0) {
+      products = data.map(p => {
+        const daysLeft = p.expiryDate ? Math.ceil((new Date(p.expiryDate) - new Date()) / (1000 * 60 * 60 * 24)) : 10;
+        return {
+          name: p.name,
+          category: p.category || "Uncategorized",
+          daysLeft: daysLeft
+        };
+      });
+    }
+  } catch (err) {
+    console.warn("Could not fetch real products, displaying mockup data:", err);
+  }
+  render();
+}
+
 function render(){
   const tb = document.getElementById("invBody");
   tb.innerHTML = "";
@@ -154,4 +182,4 @@ document.querySelectorAll(".f").forEach(b=>{
   };
 });
 
-render();
+loadInventory();

@@ -1,13 +1,13 @@
-def build_insight_prompt(metrics: dict) -> str:
+def build_insight_prompt(request) -> str:
     return f"""
 You are a retail business analyst AI.
 
 Given the following metrics, generate a short business insight.
 You are a retail analytics AI.
 
-Store ID: {req.store_id}
-Total Revenue: {req.metrics.totalRevenue}
-Total Transactions: {req.metrics.totalTransactions}
+Store ID: {request.store_id}
+Total Revenue: {request.metrics.get('totalRevenue', 0) if request.metrics else 0}
+Total Transactions: {request.metrics.get('totalTransactions', 0) if request.metrics else 0}
 
 Respond ONLY in valid JSON:
 {{

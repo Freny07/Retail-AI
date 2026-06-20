@@ -35,7 +35,7 @@ function togglePassword(id) {
 
 /* ================= LOGIN ================= */
 
-function loginUser() {
+async function loginUser() {
   const identifier = document.getElementById("loginIdentifier").value;
   const password = document.getElementById("loginPassword").value;
 
@@ -44,23 +44,38 @@ function loginUser() {
     return;
   }
 
-  localStorage.setItem("gumasto_logged_in", "true");
-  window.location.href = "../dashboard.html";
+  try {
+    const res = await fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: identifier, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Invalid credentials");
+
+    localStorage.setItem("gumasto_token", data.token);
+    localStorage.setItem("gumasto_logged_in", "true");
+    localStorage.removeItem("is_guest");
+    window.location.href = "../dashboard.html";
+  } catch (err) {
+    alert(err.message);
+  }
 }
 
 function continueAsGuest() {
-  localStorage.removeItem("gumasto_logged_in");
+  localStorage.setItem("gumasto_logged_in", "true");
+  localStorage.setItem("is_guest", "true");
   window.location.href = "../dashboard.html";
 }
 
 /* ================= SIGNUP ================= */
 
-function signupUser() {
+async function signupUser() {
   const inputs = document.querySelectorAll("#signupForm input");
   let hasError = false;
 
   inputs.forEach(input => {
-    if (!input.value.trim()) {
+    if (!input.value.trim() && !input.disabled) {
       input.classList.add("input-error");
       hasError = true;
     } else {
@@ -70,15 +85,58 @@ function signupUser() {
 
   if (hasError) return;
 
-  localStorage.setItem("gumasto_logged_in", "true");
-  window.location.href = "../dashboard.html";
+  const name = inputs[0].value;
+  const email = inputs[2].value;
+  const password = document.getElementById("signupPassword").value;
+
+  try {
+    const res = await fetch("http://localhost:5000/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Registration failed");
+
+    localStorage.setItem("gumasto_token", data.token);
+    localStorage.setItem("gumasto_logged_in", "true");
+    localStorage.removeItem("is_guest");
+    alert("Signup successful!");
+    window.location.href = "../dashboard.html";
+  } catch (err) {
+    alert(err.message);
+  }
 }
 
 /* ================= RESET PASSWORD ================= */
 
-function resetPassword() {
-  localStorage.setItem("gumasto_logged_in", "true");
-  window.location.href = "../dashboard.html";
+async function resetPassword() {
+  const newPassword = document.getElementById("newPassword").value;
+  const email = localStorage.getItem("reset_email");
+  const otp = localStorage.getItem("reset_otp");
+
+  if (!email || !otp) {
+    alert("Reset session expired or invalid. Please request a new OTP.");
+    window.location.href = "../AUTH/forgot-password.html";
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/auth/reset-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, otp, newPassword })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Reset password failed");
+
+    alert("Password reset successfully! Please log in.");
+    localStorage.removeItem("reset_email");
+    localStorage.removeItem("reset_otp");
+    window.location.href = "../AUTH/login.html";
+  } catch (err) {
+    alert(err.message);
+  }
 }
 
 /* ================================================= */
@@ -101,7 +159,7 @@ function attemptsKey() {
 }
 
 /* MAIN BUTTON */
-function handleOtpAction() {
+async function handleOtpAction() {
   const btn = document.getElementById("otpActionBtn");
   const input = document.getElementById("forgotIdentifier");
 
@@ -115,26 +173,45 @@ function handleOtpAction() {
 
   /* SEND / RESEND */
   if (!otpSent) {
-    if (!input.value.trim()) {
+    const email = input.value.trim();
+    if (!email) {
       input.classList.add("input-error");
       return;
     }
     input.classList.remove("input-error");
 
-    localStorage.setItem("gumasto_otp", "123456"); // demo
-    otpSent = true;
-
-    btn.textContent = "Verify OTP";
     btn.disabled = true;
+    btn.textContent = "Sending...";
 
-    document.getElementById("otpSection").style.display = "block";
-    document.getElementById("otpError").classList.remove("show");
+    try {
+      const res = await fetch("http://localhost:5000/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to generate OTP");
 
-    clearOtpInputs();
-    setOtpInputsDisabled(false);
-    startOtpTimer();
+      localStorage.setItem("gumasto_otp", data.otp || "123456");
+      localStorage.setItem("reset_email", email);
+      otpSent = true;
 
-    alert("OTP sent (demo): 123456");
+      btn.textContent = "Verify OTP";
+      btn.disabled = false;
+
+      document.getElementById("otpSection").style.display = "block";
+      document.getElementById("otpError").classList.remove("show");
+
+      clearOtpInputs();
+      setOtpInputsDisabled(false);
+      startOtpTimer();
+
+      alert(data.message || "OTP generated successfully!");
+    } catch (err) {
+      alert(err.message);
+      btn.textContent = "Send OTP";
+      btn.disabled = false;
+    }
     return;
   }
 
@@ -209,7 +286,8 @@ function verifyOtp() {
   }
 
   clearInterval(otpTimerInterval);
-  window.location.href = "../auth/reset-password.html";
+  localStorage.setItem("reset_otp", enteredOtp);
+  window.location.href = "../AUTH/reset-password.html";
 }
 
 /* INPUT UX */

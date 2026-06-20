@@ -1,8 +1,10 @@
 from fastapi import FastAPI, UploadFile, File
 import pandas as pd
 import io
+from app.routes.ai_routes import router as ai_router
 
 app = FastAPI()
+app.include_router(ai_router)
 
 @app.post("/analyze")
 async def analyze_csv(file: UploadFile = File(...)):

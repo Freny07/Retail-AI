@@ -317,12 +317,84 @@ csvInput.addEventListener("change", () => {
   // extra columns ignored automatically
     localStorage.setItem("inventoryCSV", text);
 
-    alert(
-      "CSV uploaded successfully.\n" +
-      "Country & currency linked automatically."
-    );
-  };
+    // Upload to backend
+    const formData = new FormData();
+    formData.append("file", file);
 
+    const headers = {};
+    const token = localStorage.getItem("gumasto_token");
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    fetch("http://localhost:5000/api/upload/csv", {
+      method: "POST",
+      headers,
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Backend upload success:", data);
+      alert("CSV uploaded successfully and synced to backend database!");
+      loadDashboardStats();
+    })
+    .catch(err => {
+      console.error("Backend upload error:", err);
+      alert("CSV uploaded locally, but failed to sync to backend database.");
+    });
+  };
 
   reader.readAsText(file);
 });
+
+/* ===============================
+   DYNAMIC STATS
+   =============================== */
+
+async function loadDashboardStats() {
+  try {
+    const headers = {};
+    const token = localStorage.getItem("gumasto_token");
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const res = await fetch("http://localhost:5000/api/products", { headers });
+    if (!res.ok) throw new Error("Failed to fetch products");
+    const products = await res.json();
+
+    if (products && products.length > 0) {
+      let riskCount = 0;
+      let fastCount = 0;
+      let totalValue = 0;
+
+      products.forEach(p => {
+        const daysLeft = p.expiryDate ? Math.ceil((new Date(p.expiryDate) - new Date()) / (1000 * 60 * 60 * 24)) : 10;
+        if (daysLeft <= 7) {
+          riskCount++;
+        }
+        if (p.stock > 150) {
+          fastCount++;
+        }
+        totalValue += (p.stock * p.price);
+      });
+
+      const riskEl = document.getElementById("inventoryRiskCount");
+      if (riskEl) riskEl.innerText = riskCount;
+
+      const fastEl = document.getElementById("fastMovingCount");
+      if (fastEl) fastEl.innerText = fastCount;
+
+      const revEl = document.getElementById("revenueSavedVal");
+      if (revEl) {
+        const currencySymbol = localStorage.getItem("currencySymbol") || "₹";
+        revEl.innerText = `${currencySymbol}${(totalValue / 100000).toFixed(1)}L`;
+      }
+    }
+  } catch (err) {
+    console.warn("Failed to load real dashboard stats, showing mock data", err);
+  }
+}
+
+// Load stats on startup
+document.addEventListener("DOMContentLoaded", loadDashboardStats);

@@ -1,5 +1,7 @@
 import express from "express";
 import axios from "axios";
+import { generateInsight } from "../controllers/ai.controller.js";
+
 const router = express.Router();
 
 // GET /api/ai/insights → called by frontend
@@ -28,5 +30,8 @@ router.get("/insights", async (req, res) => {
     });
   }
 });
+
+// POST /ai/insight → called by frontend
+router.post("/insight", generateInsight);
 
 export default router;

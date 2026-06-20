@@ -6,8 +6,9 @@ export const getInsight = async (insightRequest) => {
   try {
     console.log("📤 Sending request to Python AI:", insightRequest);
 
+    const baseUrl = PYTHON_AI_URL.endsWith("/ai") ? PYTHON_AI_URL.slice(0, -3) : PYTHON_AI_URL;
     const response = await axios.post(
-      `${PYTHON_AI_URL}/ai/insight`,
+      `${baseUrl}/ai/insight`,
       insightRequest,
       {
         timeout: 8000,

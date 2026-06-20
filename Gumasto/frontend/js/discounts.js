@@ -1,4 +1,4 @@
-const products = [
+let products = [
   // ===== DAIRY =====
   {name:"Amul Milk",brand:"Amul",days:2,sales:15,stock:280,cat:"Dairy",price:52,cost:50},
   {name:"Mother Dairy Milk",brand:"Mother Dairy",days:3,sales:13,stock:260,cat:"Dairy",price:50,cost:48},
@@ -129,6 +129,39 @@ const sens=document.getElementById("sens");
 const sensVal=document.getElementById("sensVal");
 const tbody=document.getElementById("tbody");
 
+async function loadDiscounts() {
+  try {
+    const headers = {};
+    const token = localStorage.getItem("gumasto_token");
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const res = await fetch("http://localhost:5000/api/products", { headers });
+    if (!res.ok) throw new Error("Failed to fetch products");
+    const data = await res.json();
+
+    if (data && data.length > 0) {
+      products = data.map(p => {
+        const daysLeft = p.expiryDate ? Math.ceil((new Date(p.expiryDate) - new Date()) / (1000 * 60 * 60 * 24)) : 10;
+        return {
+          name: p.name,
+          brand: p.brand || "Generic",
+          cat: p.category || "Uncategorized",
+          stock: p.stock || 0,
+          sales: p.sales || 0,
+          days: daysLeft,
+          price: p.price || 0,
+          cost: p.cost || Math.round(p.price * 0.8)
+        };
+      });
+    }
+  } catch (err) {
+    console.warn("Could not fetch real products for discounts, displaying mockup data:", err);
+  }
+  render();
+}
+
 function profitClass(val){
   if(val < 0) return "loss";
   if(val > 0) return "profit";
@@ -173,6 +206,6 @@ function render(){
 }
 
 sens.oninput=render;
-render();
+loadDiscounts();
 lucide.createIcons();
 

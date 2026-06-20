@@ -13,7 +13,7 @@ def generate_insight(request):
     )
 
     try:
-        prompt = build_insight_prompt(metrics)
+        prompt = build_insight_prompt(request)
         explanation = generate_response(prompt)
 
         confidence = 0.9  # slightly lower for AI-generated text

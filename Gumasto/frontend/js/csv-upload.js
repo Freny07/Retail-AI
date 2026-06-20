@@ -35,8 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
     uploadBtn.textContent = "Uploading...";
 
     try {
+      const headers = {};
+      const token = localStorage.getItem("gumasto_token");
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
       const res = await fetch("http://localhost:5000/api/upload/csv", {
         method: "POST",
+        headers,
         body: formData
       });
 
@@ -59,12 +66,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
-const res = await fetch("http://localhost:5000/api/upload/csv", {
-  method: "POST",
-  body: formData
-});
-
-console.log("Fetch response status:", res.status);
-const data = await res.json();
-console.log("Upload response data:", data);

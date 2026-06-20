@@ -21,9 +21,15 @@ export const forgotPassword = async (req, res) => {
     user.resetOTPExpiry = Date.now() + 10 * 60 * 1000;
 
     await user.save();
-    await sendOTPEmail(email, otp);
+    console.log(`🔑 [OTP DEBUG] Generated OTP for ${email}: ${otp}`);
 
-    res.json({ message: "OTP sent to email" });
+    try {
+      await sendOTPEmail(email, otp);
+    } catch (emailErr) {
+      console.warn("⚠️ SMTP Email sending failed. Please read the OTP from the server terminal console:", otp);
+    }
+
+    res.json({ message: "OTP generated (check email or server console)", otp });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

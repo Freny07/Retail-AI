@@ -109,10 +109,10 @@
     <h2 class="section-title">Executive Overview</h2>
 
     <section class="stats">
-      <div class="stat-card"><span>Inventory at Risk</span><h3>12</h3></div>
+      <div class="stat-card"><span>Inventory at Risk</span><h3 id="inventoryRiskCount">12</h3></div>
       <div class="stat-card"><span>Waste Reduced</span><h3>40%</h3></div>
-      <div class="stat-card"><span>Revenue Saved</span><h3>₹163.1L</h3></div>
-      <div class="stat-card"><span>Fast Moving Products</span><h3>24</h3></div>
+      <div class="stat-card"><span>Revenue Saved</span><h3 id="revenueSavedVal">₹163.1L</h3></div>
+      <div class="stat-card"><span>Fast Moving Products</span><h3 id="fastMovingCount">24</h3></div>
     </section>
 
     <!-- AI HIGHLIGHTS -->
@@ -121,15 +121,15 @@
     <section class="highlights">
       <div class="highlight orange">
         <h4>Expiry Risk Detected</h4>
-        <p>Milk, bread, and yogurt batches are entering critical expiry windows.</p>
+        <p id="expiryInsight">Milk, bread, and yogurt batches are entering critical expiry windows.</p>
       </div>
       <div class="highlight blue">
         <h4>Demand Surge Incoming</h4>
-        <p>Dairy and beverage demand is projected to rise next week.</p>
+        <p id="demandInsight">Dairy and beverage demand is projected to rise next week.</p>
       </div>
       <div class="highlight green">
         <h4>Layout Opportunity</h4>
-        <p>31% increase in impulse purchases by moving snacks near checkout.</p>
+        <p id="layoutInsight">31% increase in impulse purchases by moving snacks near checkout.</p>
       </div>
     </section>
 
@@ -152,6 +152,7 @@ fetch("components/footer.html")
   });
 </script>
 
+<script src="js/highlights-ai.js"></script>
 <script src="js/dashboard.js"></script>
 
 </body>

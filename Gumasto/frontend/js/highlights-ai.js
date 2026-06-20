@@ -1,10 +1,16 @@
 async function fetchInsight(metrics, elementId) {
   try {
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    const token = localStorage.getItem("gumasto_token");
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
     const res = await fetch("http://localhost:5000/ai/insight", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers,
       body: JSON.stringify({
         store_id: "store_001",
         metrics

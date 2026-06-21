@@ -66,17 +66,17 @@
     <section class="kpis">
       <div class="kpi-card green">
         <p class="label">Predicted Growth</p>
-        <p class="value">+18%</p>
+        <p class="value" id="predictedGrowthVal">+18%</p>
       </div>
 
       <div class="kpi-card blue">
         <p class="label">High Demand Category</p>
-        <p class="value">Dairy & Beverages</p>
+        <p class="value" id="highDemandCategoryVal">Dairy & Beverages</p>
       </div>
 
       <div class="kpi-card orange">
         <p class="label">Underperforming SKUs</p>
-        <p class="value">7</p>
+        <p class="value" id="underperformingSKUsVal">7</p>
       </div>
     </section>
 
@@ -91,7 +91,7 @@
           <canvas id="demandChart"></canvas>
         </div>
 
-        <div class="insight-chip">
+        <div class="insight-chip" id="trendsInsightChip">
           🤖 AI Insight: Demand peaks during April–May. Pre-stocking dairy
           and beverages can significantly boost revenue.
         </div>

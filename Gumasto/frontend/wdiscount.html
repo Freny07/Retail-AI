@@ -43,19 +43,19 @@
     <section class="metric-row">
       <div class="metric discount-metric1">
         <span>Total Items</span>
-        <strong>100</strong>
+        <strong id="totalDiscountItems">100</strong>
       </div>
       <div class="metric discount-metric2">
         <span>Items on Discount</span>
-        <strong>18</strong>
+        <strong id="itemsOnDiscountCount">18</strong>
       </div>
       <div class="metric discount-metric3">
         <span>High Priority</span>
-        <strong>22</strong>
+        <strong id="highPriorityDiscountCount">22</strong>
       </div>
       <div class="metric discount-metric4">
         <span>Avg Discount %</span>
-        <strong>18%</strong>
+        <strong id="avgDiscountPercent">18%</strong>
       </div>
     </section>
 
@@ -68,10 +68,6 @@
     <section class="filter-row">
       <select id="categoryFilter">
         <option value="all">All Categories</option>
-        <option value="Electronics">Electronics</option>
-        <option value="Groceries">Groceries</option>
-        <option value="Furniture">Furniture</option>
-        <option value="Clothing">Clothing</option>
       </select>
     </section>
 
@@ -87,7 +83,7 @@
             <th>Final Price</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="discountTableBody">
           <tr data-category="Electronics">
             <td>Headphones</td>
             <td>Electronics</td>

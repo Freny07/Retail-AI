@@ -123,23 +123,13 @@ let filter = "ALL";
 
 async function loadInventory() {
   try {
-    const headers = {};
-    const token = localStorage.getItem("gumasto_token");
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
-    }
-
-    const res = await fetch("http://localhost:5000/api/products", { headers });
-    if (!res.ok) throw new Error("Failed to fetch products");
-    const data = await res.json();
-
+    const data = await window.getInventoryData(products);
     if (data && data.length > 0) {
       products = data.map(p => {
-        const daysLeft = p.expiryDate ? Math.ceil((new Date(p.expiryDate) - new Date()) / (1000 * 60 * 60 * 24)) : 10;
         return {
           name: p.name,
           category: p.category || "Uncategorized",
-          daysLeft: daysLeft
+          daysLeft: p.daysLeft
         };
       });
     }

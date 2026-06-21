@@ -1,7 +1,7 @@
 const ctx = document.getElementById("wasteChart").getContext("2d");
 
 const labels = ["Dispose", "Donate", "Discount", "Sale"];
-const values = [3, 1, 9, 8];
+let values = [3, 1, 9, 8];
 
 const colors = {
   Dispose: "#dc2626",
@@ -72,4 +72,50 @@ function setActive(index){
 cards.forEach((card,index)=>{
   card.addEventListener("click", ()=>setActive(index));
 });
+
+async function initWaste() {
+  try {
+    const products = await window.getInventoryData([]);
+    if (products && products.length > 0) {
+      let dispose = 0;
+      let donate = 0;
+      let discount = 0;
+      let sale = 0;
+      
+      products.forEach(p => {
+        const days = p.daysLeft;
+        if (days <= 0) {
+          dispose++;
+        } else if (days <= 3) {
+          if (p.unitsSold < 10) {
+            donate++;
+          } else {
+            dispose++;
+          }
+        } else if (days <= 10) {
+          discount++;
+        } else if (days <= 30) {
+          sale++;
+        }
+      });
+      
+      values[0] = dispose;
+      values[1] = donate;
+      values[2] = discount;
+      values[3] = sale;
+      
+      document.getElementById("disposeCount").innerText = dispose;
+      document.getElementById("donateCount").innerText = donate;
+      document.getElementById("discountCount").innerText = discount;
+      document.getElementById("saleCount").innerText = sale;
+      
+      chart.data.datasets[0].data = values;
+      chart.update();
+    }
+  } catch (err) {
+    console.warn("Failed to load dynamic waste overview", err);
+  }
+}
+
+initWaste();
 

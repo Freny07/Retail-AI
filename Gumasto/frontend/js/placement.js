@@ -6,7 +6,7 @@ const insight = document.getElementById("insight");
    CATEGORY-WISE AI CURATED SCORES
    =============================== */
 
-const categoryScores = {
+let categoryScores = {
   "Dairy": {
     "top-left": 30,
     "top-mid": 45,
@@ -125,7 +125,13 @@ select.addEventListener("change", () => {
     return;
   }
 
-  const scores = categoryScores[category];
+  // Check if category exists in scores
+  const scores = categoryScores[category] || {
+    "top-left": 30, "top-mid": 50, "top-right": 40,
+    "mid-left": 70, "mid-mid": 85, "mid-right": 75,
+    "bot-left": 25, "bot-mid": 35, "bot-right": 30,
+    "checkout": 65
+  };
 
   cells.forEach(cell => {
     const score = scores[cell.dataset.id];
@@ -142,3 +148,49 @@ select.addEventListener("change", () => {
   insight.textContent =
     `AI Insight: ${category} products perform best at eye-level shelves and strategically placed zones like checkout for maximum visibility.`;
 });
+
+async function initPlacement() {
+  try {
+    const products = await window.getInventoryData([]);
+    if (products && products.length > 0) {
+      const parsedScores = {};
+      const categories = [...new Set(products.map(p => p.category))];
+      
+      categories.forEach(cat => {
+        const catProducts = products.filter(p => p.category === cat);
+        const totalSales = catProducts.reduce((sum, p) => sum + p.unitsSold, 0);
+        const avgSales = totalSales / catProducts.length;
+        const velocityFactor = Math.min(Math.max(avgSales / 5, 0.8), 1.5);
+        
+        parsedScores[cat] = {
+          "top-left": Math.round(Math.min(100, 30 * velocityFactor)),
+          "top-mid": Math.round(Math.min(100, 50 * velocityFactor)),
+          "top-right": Math.round(Math.min(100, 40 * velocityFactor)),
+          "mid-left": Math.round(Math.min(100, 70 * velocityFactor)),
+          "mid-mid": Math.round(Math.min(100, 85 * velocityFactor)),
+          "mid-right": Math.round(Math.min(100, 75 * velocityFactor)),
+          "bot-left": Math.round(Math.min(100, 25 * velocityFactor)),
+          "bot-mid": Math.round(Math.min(100, 35 * velocityFactor)),
+          "bot-right": Math.round(Math.min(100, 30 * velocityFactor)),
+          "checkout": Math.round(Math.min(100, (cat === "Snacks" ? 95 : 65) * velocityFactor))
+        };
+      });
+      
+      categoryScores = parsedScores;
+
+      // Populate Select Categories Dropdown
+      const selectEl = document.getElementById("categorySelect");
+      selectEl.innerHTML = '<option value="">Select Category</option>';
+      Object.keys(categoryScores).forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat;
+        option.textContent = cat;
+        selectEl.appendChild(option);
+      });
+    }
+  } catch (err) {
+    console.warn("Failed to dynamically build categoryScores, using mock", err);
+  }
+}
+
+initPlacement();

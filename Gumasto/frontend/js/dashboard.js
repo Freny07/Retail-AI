@@ -321,15 +321,15 @@ csvInput.addEventListener("change", () => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const headers = {};
+    const uploadHeaders = {};
     const token = localStorage.getItem("gumasto_token");
     if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
+      uploadHeaders["Authorization"] = `Bearer ${token}`;
     }
 
     fetch("http://localhost:5000/api/upload/csv", {
       method: "POST",
-      headers,
+      headers: uploadHeaders,
       body: formData
     })
     .then(res => res.json())
@@ -337,10 +337,17 @@ csvInput.addEventListener("change", () => {
       console.log("Backend upload success:", data);
       alert("CSV uploaded successfully and synced to backend database!");
       loadDashboardStats();
+      if (typeof window.loadHighlights === "function") {
+        window.loadHighlights();
+      }
     })
     .catch(err => {
       console.error("Backend upload error:", err);
       alert("CSV uploaded locally, but failed to sync to backend database.");
+      loadDashboardStats();
+      if (typeof window.loadHighlights === "function") {
+        window.loadHighlights();
+      }
     });
   };
 
@@ -353,15 +360,7 @@ csvInput.addEventListener("change", () => {
 
 async function loadDashboardStats() {
   try {
-    const headers = {};
-    const token = localStorage.getItem("gumasto_token");
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
-    }
-
-    const res = await fetch("http://localhost:5000/api/products", { headers });
-    if (!res.ok) throw new Error("Failed to fetch products");
-    const products = await res.json();
+    const products = await window.getInventoryData([]);
 
     if (products && products.length > 0) {
       let riskCount = 0;
@@ -369,8 +368,7 @@ async function loadDashboardStats() {
       let totalValue = 0;
 
       products.forEach(p => {
-        const daysLeft = p.expiryDate ? Math.ceil((new Date(p.expiryDate) - new Date()) / (1000 * 60 * 60 * 24)) : 10;
-        if (daysLeft <= 7) {
+        if (p.daysLeft <= 7) {
           riskCount++;
         }
         if (p.stock > 150) {
@@ -388,13 +386,18 @@ async function loadDashboardStats() {
       const revEl = document.getElementById("revenueSavedVal");
       if (revEl) {
         const currencySymbol = localStorage.getItem("currencySymbol") || "₹";
-        revEl.innerText = `${currencySymbol}${(totalValue / 100000).toFixed(1)}L`;
+        if (totalValue >= 100000) {
+          revEl.innerText = `${currencySymbol}${(totalValue / 100000).toFixed(1)}L`;
+        } else {
+          revEl.innerText = `${currencySymbol}${totalValue.toLocaleString()}`;
+        }
       }
     }
   } catch (err) {
-    console.warn("Failed to load real dashboard stats, showing mock data", err);
+    console.warn("Failed to load real dashboard stats", err);
   }
 }
 
 // Load stats on startup
 document.addEventListener("DOMContentLoaded", loadDashboardStats);
+

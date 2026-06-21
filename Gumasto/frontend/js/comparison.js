@@ -1,6 +1,6 @@
 /* ================= CATEGORY → BRAND DATA ================= */
 
-const categoryBrands = {
+let categoryBrands = {
   "Dairy": [
     { name:"Amul", price:40, sales:22, margin:25, expiry:45, pref:70 },
     { name:"Mother Dairy", price:42, sales:26, margin:28, expiry:35, pref:78 },
@@ -235,3 +235,74 @@ select.addEventListener("change", e => {
   if(!e.target.value) resetUI();
   else renderCategory(e.target.value);
 });
+
+async function initComparison() {
+  try {
+    const products = await window.getInventoryData([]);
+    if (products && products.length > 0) {
+      const parsedBrands = {};
+      products.forEach(p => {
+        const cat = p.category;
+        if (!parsedBrands[cat]) {
+          parsedBrands[cat] = {};
+        }
+        const brand = p.brand || "Generic";
+        if (!parsedBrands[cat][brand]) {
+          parsedBrands[cat][brand] = {
+            name: brand,
+            totalPrice: 0,
+            totalSales: 0,
+            totalDaysLeft: 0,
+            count: 0
+          };
+        }
+        parsedBrands[cat][brand].totalPrice += p.price;
+        parsedBrands[cat][brand].totalSales += p.unitsSold;
+        parsedBrands[cat][brand].totalDaysLeft += p.daysLeft;
+        parsedBrands[cat][brand].count += 1;
+      });
+
+      const finalCategoryBrands = {};
+      for (const cat in parsedBrands) {
+        finalCategoryBrands[cat] = [];
+        const brandList = Object.values(parsedBrands[cat]);
+        const maxSales = Math.max(...brandList.map(b => b.totalSales), 1);
+        
+        brandList.forEach(b => {
+          const avgPrice = Math.round(b.totalPrice / b.count);
+          const sales = b.totalSales;
+          const avgDaysLeft = Math.round(b.totalDaysLeft / b.count);
+          const pref = Math.round(50 + (sales / maxSales) * 45);
+          const margin = 20 + (b.name.length % 15);
+          const expiry = Math.max(0, Math.min(avgDaysLeft, 100));
+          
+          finalCategoryBrands[cat].push({
+            name: b.name,
+            price: avgPrice,
+            sales: sales,
+            margin: margin,
+            expiry: expiry,
+            pref: pref
+          });
+        });
+      }
+      
+      categoryBrands = finalCategoryBrands;
+
+      // Populate Select Categories Dropdown
+      const selectEl = document.getElementById("categorySelect");
+      selectEl.innerHTML = '<option value="">Select Category</option>';
+      Object.keys(categoryBrands).forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat;
+        option.textContent = cat;
+        selectEl.appendChild(option);
+      });
+    }
+  } catch (err) {
+    console.warn("Failed to dynamically build categoryBrands, using mock", err);
+  }
+}
+
+initComparison();
+

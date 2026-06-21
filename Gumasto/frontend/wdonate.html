@@ -41,19 +41,19 @@
     <section class="metric-row">
       <div class="metric blue">
         <span>Total Items</span>
-        <strong>100</strong>
+        <strong id="totalDonateItems">100</strong>
       </div>
       <div class="metric cyan">
         <span>Urgent Donations</span>
-        <strong>3</strong>
+        <strong id="urgentDonateCount">3</strong>
       </div>
       <div class="metric mint">
         <span>Safe Inventory</span>
-        <strong>97</strong>
+        <strong id="safeDonateCount">97</strong>
       </div>
       <div class="metric lavender">
         <span>Avg Shelf Life</span>
-        <strong>26 days</strong>
+        <strong id="avgDonateShelfLife">26 days</strong>
       </div>
     </section>
 
@@ -66,10 +66,6 @@
     <section class="filter-row">
       <select id="categoryFilter">
         <option value="all">All Categories</option>
-        <option value="Dairy">Dairy</option>
-        <option value="Bakery">Bakery</option>
-        <option value="Beverages">Beverages</option>
-        <option value="Grains">Grains</option>
       </select>
     </section>
 
@@ -84,7 +80,7 @@
             <th>Quantity</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="donateTableBody">
           <tr data-category="Dairy">
             <td>Milk</td>
             <td>Dairy</td>

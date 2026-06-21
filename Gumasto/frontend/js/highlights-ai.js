@@ -29,29 +29,53 @@ async function fetchInsight(metrics, elementId) {
   }
 }
 
-/* 🔹 1. Expiry Risk */
-fetchInsight(
-  {
-    totalRevenue: 25000,
-    totalTransactions: 410
-  },
-  "expiryInsight"
-);
+async function loadHighlights() {
+  const products = await window.getInventoryData([]);
+  
+  let totalRevenue = 0;
+  let totalTransactions = 0;
+  
+  products.forEach(p => {
+    // If unitsSold is not present, use a fraction of stock or standard sales value
+    const sales = p.unitsSold || 0;
+    totalRevenue += (p.price * sales);
+    totalTransactions += sales;
+  });
+  
+  // Default fallbacks if no products or zero sales
+  if (totalRevenue === 0) totalRevenue = 25000;
+  if (totalTransactions === 0) totalTransactions = 410;
+  
+  /* 🔹 1. Expiry Risk */
+  fetchInsight(
+    {
+      totalRevenue: totalRevenue,
+      totalTransactions: totalTransactions
+    },
+    "expiryInsight"
+  );
 
-/* 🔹 2. Demand Surge */
-fetchInsight(
-  {
-    totalRevenue: 32000,
-    totalTransactions: 520
-  },
-  "demandInsight"
-);
+  /* 🔹 2. Demand Surge */
+  fetchInsight(
+    {
+      totalRevenue: Math.round(totalRevenue * 1.25),
+      totalTransactions: Math.round(totalTransactions * 1.25)
+    },
+    "demandInsight"
+  );
 
-/* 🔹 3. Layout Opportunity */
-fetchInsight(
-  {
-    totalRevenue: 18000,
-    totalTransactions: 290
-  },
-  "layoutInsight"
-);
+  /* 🔹 3. Layout Opportunity */
+  fetchInsight(
+    {
+      totalRevenue: Math.round(totalRevenue * 0.9),
+      totalTransactions: Math.round(totalTransactions * 0.85)
+    },
+    "layoutInsight"
+  );
+}
+
+// Make loadHighlights global so dashboard can re-trigger it on CSV upload
+window.loadHighlights = loadHighlights;
+
+document.addEventListener("DOMContentLoaded", loadHighlights);
+
